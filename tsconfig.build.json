@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "declaration": true, "sourceMap": true },
+  "include": ["scripts/**/*.ts"],
+  "exclude": ["test", "vitest.config.ts"]
+}
