@@ -1,6 +1,6 @@
 # Faz 0 Sonuç Raporu
 
-**Tarih:** 14 Kasım 2026, Europe/Istanbul. **Kapsam:** yalnızca ROADMAP §9 Faz 0. **Yerel teknik kabul:** geçti. GitHub CI sonucu aşağıdaki kayıt bölümünde izlenir. Faz 1'e geçilmedi.
+**Tarih:** 14 Kasım 2026, Europe/Istanbul. **Kapsam:** yalnızca ROADMAP §9 Faz 0. **Durum: Faz 0 tamamlandı.** Yerel teknik kabul ve GitHub Windows/Linux/Chromium CI kontrolleri geçti. Faz 1'e geçilmedi.
 
 ## Amaç ve somut değişiklikler
 
@@ -30,7 +30,7 @@ Windows PowerShell; Node `v24.13.1`, npm `11.8.0`, Chromium `158.0.8127.18`. Tar
 | `npm audit --audit-level=moderate` | Geçti; **0** bildirilen açık |
 | `npx playwright install chromium` | Geçti |
 | `npm run test:e2e` | **4/4**, 25,3 sn: açılış/defaults, katılım/altı hediye, panel/döngü/ayar, müzik/dans |
-| `git diff --check` | Geçti |
+| `git diff main --check` | Geçti; upstream lisans metinlerinin özgün boşluk/satır sonları `.gitattributes` ile korunur |
 | Kaynak commit → korunan dosya / ZIP girdisi | Bayt karşılaştırması geçti |
 
 CLI'nin `runtimeVerification: not-performed` alanı yalnızca envanter aracının tarayıcı çalıştırmadığını belirtir. Tarayıcı doğrulaması ayrı Playwright testleri ve bu raporla kaydedilmiştir. Kaynak/lisans alanları otomatik olarak onaylanmaz.
@@ -59,7 +59,11 @@ Görüntüler başarılı yerel testten alındı ve görsel olarak incelendi. Sa
 
 ## GitHub kayıtları
 
-Dal: `chore/phase-0-audit`. PR, `legacy-v0.2` etiketi ve CI bağlantıları GitHub'a kayıttan sonra bu bölüme eklenecek. Yerel başarı uzak CI başarısı olarak sunulmaz.
+- [PR #1](https://github.com/Rdvn268/Halay-Fest/pull/1), hedef `main`, kaynak `chore/phase-0-audit`. Değişiklikler PR olarak kaydedildi; main'e otomatik merge yapılmadı.
+- [legacy-v0.2 etiketi](https://github.com/Rdvn268/Halay-Fest/tree/legacy-v0.2), koruma commit'i `347fdbe`.
+- Küçük commit'ler: `347fdbe` prototip/arşiv; `582d237` altyapı/test/CI; `3e5f8da` rapor/kanıt; `0833155` upstream lisans baytlarının korunması. İçe aktarılan kaynak commit'i `fc050e0` geçmişte korunur.
+- [GitHub Actions çalışması #4](https://github.com/Rdvn268/Halay-Fest/actions/runs/43509581214), test edilen kod `08331554d601a64e84c756e3eaa5c98ea2b1610b`: **Tooling (windows-latest), Tooling (ubuntu-latest), Legacy Chromium smoke — 3/3 başarılı**. Tarayıcı raporu/görüntüleri `legacy-browser-evidence` artifact'ında 14 gün saklanır.
+- Bu kayıt güncellemesi yalnızca belgeleri değiştirir; sonraki CI sonuçları PR kontrollerinde görünür. Yerel ve uzak sonuçlar ayrı kanıtlarla kayıtlıdır.
 
 ## Açık riskler, gerçek/demo ayrımı ve sonraki küçük görev
 
