@@ -1,9 +1,12 @@
-# Yerel prototip kontrolü — Faz 0
+# Yerel çalışma — Faz 1
 
-1. `npm ci` ve `npm run dev` çalıştır; Chrome/Edge ile `http://127.0.0.1:4173` aç.
-2. DEMO uyarısı, 6 NPC ve hareketli sahneyi kontrol et. CDN yüklenmiyorsa oyunu çalışır sayma; tarayıcı hatasını raporla.
-3. Müzik düğmesine bir kez bas; Halay/Horon seçimlerini, durdurmayı ve ses düzeyini yerelde kontrol et. Otomatik ses izni varsayma.
-4. Sentetik adla yorum/takip/hediye düğmelerini dene. Bunlar gerçek TikTok olayları değildir.
-5. `Ctrl+C` ile önizlemeyi kapat. Sunucu kapanınca açık sayfa, tarayıcı içinde yaşamaya devam edebilir; gerçek backend henüz yoktur.
+1. npm ci, ardından npm run dev çalıştır.
+2. Sahne 127.0.0.1:5173, panel 127.0.0.1:5174. Ayrı sekmelerde aç; yerel servis ve DEMO durumlarını gör.
+3. Sabit demo userId ve görünen adla katıl gönder. Takip ve hediyeler yalnızca mock'tur.
+4. Müziği sahnede bir kez başlat. Panelden Halay/Horon ve ses seçip kaydet. Pause/resume ve yeni tur komutları sahneye ulaşır.
+5. Paneli kapat; sahne devam eder. Panel tekrar açılınca snapshot gelir. WS kopunca sahne uyarı gösterir ve tekrar dener.
+6. Ctrl+C servisleri kapatır. Ayarlar SQLite'tan gelir; oyuncu/tur restart restore henüz yoktur.
 
-Bu rehber canlıya alma onayı değildir. LIVE Studio kurulumu, müzik haklarının onayı, moderasyon, gerçek TikTok testi, performans ve 5 saat dayanıklılık sonraki fazların kabul kapılarıdır. Gerçek hediye testi ve canlı yayın kullanıcının açık onayıyla yapılır; bu görevde yapılmadı.
+Build: npm run build, npm start; sahne 4174, panel 4175. Eski referans: npm run dev:legacy → 4173 (internet/CDN gerekir).
+
+Bu rehber canlı yayın hazırlık kabulü değildir. LIVE Studio penceresi, müzik hakları, moderasyon, gerçek TikTok, FPS ve soak/pilot sonraki fazlarda doğrulanacaktır. Bu görevde canlı hediye testi yapılmadı.

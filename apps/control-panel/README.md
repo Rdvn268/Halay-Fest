@@ -1,3 +1,3 @@
 # apps/control-panel
 
-Faz 1: Vite + React + TypeScript kontrol paneli. Hen?z uygulama yok.
+Vite/React/TypeScript yerel panel. Sunucuya doğrulanmış ayar, komut ve mock olay gönderir. Tam Faz 6 paneli değildir.

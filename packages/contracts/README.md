@@ -1,3 +1,3 @@
 # packages/contracts
 
-Faz 1: DTO, ?ema ve s?r?mleme. Hen?z ortak paket yok.
+Protokol v1 Zod şemaları, ortak DTO ve varsayılan ayarlar. Kaynak src/index.ts; gerçek TikTok adapter uygulaması yok.

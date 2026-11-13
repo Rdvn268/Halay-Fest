@@ -1,4 +1,4 @@
-name: Phase 0 checks
+name: Halay Fest checks
 
 on:
   push:
@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: phase-0-${{ github.workflow }}-${{ github.ref }}
+  group: halay-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -35,10 +35,16 @@ jobs:
       - run: npm run check:legacy
       - run: npm audit --audit-level=moderate
 
-  legacy-browser:
-    name: Legacy Chromium smoke
+  runtime-browser:
+    name: Chromium (${{ matrix.mode }})
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [dev, production]
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      TEST_PRODUCTION: ${{ matrix.mode == 'production' && '1' || '0' }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
@@ -46,13 +52,15 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
+      - run: npm run build
       - run: npx playwright install --with-deps chromium
-      # Tests load the real legacy Three.js CDN import; no TikTok source is connected.
+      # Legacy retains its original CDN import; the modular app bundles Three.js.
+      # Only synthetic mock identities/events are used; no TikTok source is connected.
       - run: npm run test:e2e
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         if: always()
         with:
-          name: legacy-browser-evidence
+          name: browser-evidence-${{ matrix.mode }}
           path: |
             playwright-report/
             test-results/

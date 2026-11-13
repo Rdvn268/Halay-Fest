@@ -3,23 +3,28 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "HALAY FEST Phase 0 repository audit tooling; no game implementation yet",
+  "description": "HALAY FEST local modular demo runtime",
   "engines": {
     "node": ">=24.13.1 <25",
     "npm": ">=11 <12"
   },
   "packageManager": "npm@11.8.0",
   "scripts": {
-    "dev": "npm run build --silent && node dist/scripts/serve-legacy.js",
-    "lint": "eslint scripts test --max-warnings 0",
+    "dev": "node --import=tsx scripts/dev.ts",
+    "lint": "eslint scripts test apps services packages --max-warnings 0",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "build": "tsc -p tsconfig.build.json",
-    "audit:legacy": "npm run build --silent && node dist/scripts/audit-cli.js",
-    "check:legacy": "npm run build --silent && node dist/scripts/audit-cli.js --require-source",
-    "verify": "npm run lint && npm run typecheck && npm run test && npm run build"
+    "build": "npm run build:packages && npm run build:tools && npm run build:gateway && npm run build -w @halay/broadcaster && npm run build -w @halay/control-panel",
+    "audit:legacy": "npm run build:tools --silent && node dist/scripts/audit-cli.js",
+    "check:legacy": "npm run build:tools --silent && node dist/scripts/audit-cli.js --require-source",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run build",
+    "start": "node --import=tsx scripts/dev.ts --production",
+    "dev:legacy": "npm run build:tools --silent && node dist/scripts/serve-legacy.js",
+    "build:tools": "tsc -p tsconfig.build.json",
+    "build:packages": "npm run build -w @halay/contracts && npm run build -w @halay/game-core && npm run build -w @halay/halay-game && npm run build -w @halay/runtime-client",
+    "build:gateway": "tsc -p tsconfig.gateway.json"
   },
   "overrides": {
     "minimatch": "11.0.8"
@@ -27,9 +32,25 @@
   "devDependencies": {
     "@playwright/test": "1.65.0",
     "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/three": "0.180.0",
+    "@types/ws": "8.18.2",
     "eslint": "10.14.0",
+    "prettier": "3.10.1",
+    "tsx": "4.23.15",
     "typescript": "6.0.3",
     "typescript-eslint": "8.72.2",
+    "vite": "8.3.8",
     "vitest": "5.1.0"
-  }
+  },
+  "workspaces": [
+    "apps/broadcaster",
+    "apps/control-panel",
+    "services/live-gateway",
+    "packages/contracts",
+    "packages/game-core",
+    "packages/halay-game",
+    "packages/runtime-client"
+  ]
 }

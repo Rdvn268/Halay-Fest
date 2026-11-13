@@ -1,21 +1,27 @@
-# Mimari hazırlık — Faz 0
+# Mimari — Faz 1
 
-Çalışan sistem tek HTML + tarayıcı localStorage + CDN Three.js + Web Audio'dur. Node önizleme sunucusu yalnızca korunmuş dosyaları localhost üzerinde sunar; oyun backend'i değildir. TypeScript build'i yalnızca denetim ve sunucu araçlarını derler.
+npm workspaces: broadcaster, control-panel, live-gateway, contracts, game-core, halay-game, runtime-client. Kaynaklar strict TypeScript kontrolü altındadır. Desktop/event-engine/game-sdk/ui hedefleri sonraki fazlara aittir.
 
-`apps/`, `services/`, `packages/` klasörleri yalnızca amaçlarını anlatan README'ler içerir. npm workspaces ve paket sınırları Faz 1'de gerçek kodla birlikte kurulacaktır. Boş paketleri çalışır modüller gibi göstermiyoruz.
+Akış: React panel → aynı origin `/api/mock` → Node HTTP → MockSourceAdapter + Zod → SQLite kayıt/temel tekilleştirme → saf game-core → WebSocket snapshot/event → bağımsız Three.js sahnesi. Panel ve sahne ayrı WS aboneleridir; panel kapanması sunucuyu veya sahneyi kapatmaz.
 
-| Hedef sınır | Sorumluluk | Uygulama fazı |
-|---|---|---|
-| broadcaster | Three.js görüntüleme; panel kapanmasına dayanıklılık | 1–2 |
-| control-panel | Vite/React yönetim görünümü | 1, 6 |
-| live-gateway | Node API, WebSocket, kaynak adaptörü | 1; gerçek TikTok 5 |
-| contracts | Sürümlü DTO ve doğrulama şemaları | 1 |
-| game-core | Saf durum, döngü, oyuncu/kuyruk | 1, 3 |
-| event-engine | Ingest, dedupe, streak, kurallar | 4 |
-| halay-game | Meydan, dans, beat clock, kamera | 2–3 |
-| ui | Ortak panel bileşenleri | 1, 6 |
-| desktop / game-sdk | Windows dağıtımı / çok oyun desteği | 7 / 10 |
+| Paket | Sorumluluk |
+|---|---|
+| contracts | Varsayılan ayarlar, oyuncu/olay/snapshot şeması, protokol v1 |
+| game-core | Kararlı demo userId ile katılım, kapasite sınırı, ayar ve manuel kontrol reducer'ları |
+| live-gateway | Loopback HTTP/WS, origin/host/body sınırları, migration ve yerel kayıt |
+| runtime-client | Snapshot doğrulama, gerçek WS mesajından sonra bağlı durumu, backoff ve tekrar bağlanma |
+| halay-game | scene/environment/dancers/choreography/rhythm/music; 3D/ses yaşam döngüsü |
+| broadcaster | 9:16 yerel sahne, ayrı ses etkileşimi ve açık mock/bağlantı durumu |
+| control-panel | React kontrolleri; yalnızca kayıt başarılıysa başarı bildirimi |
 
-Geçiş stratejisi: `legacy/v0.2/` değişmez referans olarak kalır. Yeni kod ayrı hedeflerde kurulur; mevcut animasyon/sentez/döngü davranışları regresyon kanıtlarıyla karşılaştırılır. Sahne, yönetim ve bağlantı ileride ayrı süreç/sayfa olur; mock yolu korunur. Olay/ayarların sunucuda doğrulanması ve sınırlı kuyruk, gerçek TikTok'tan önce uygulanır. SQLite migration ve tek komutlu modüler başlatma bu fazın teslimi değildir.
+`npm run dev` ayrı Node gateway sürecini başlatır, hazır sinyalini bekler ve iki Vite URL'sini servis eder. `npm start` derlenmiş Node + Vite build önizlemelerini kullanır. Tüm dinleyiciler `127.0.0.1` üzerinde; port çakışması hata verir.
 
-Yol haritası varsayılanları: 20 dakika, 6 NPC, 100 gerçek oyuncu, `both`, otomatik tur/kamera/etkinlik açık, hedef 1080×1920. Bunlar mevcut kod ve belgede korunur; ortak TS şeması henüz eklenmedi.
+Geliştirmede workspace development export'ları TS kaynaklarına, üretim Node çalışmasında default export'lar paket dist dosyalarına gider. Önce ortak paketler, sonra Node ve UI build edilir. Kök typecheck tüm kaynakları kapsar. Three.js 0.180.0 korunur; core/renderer ayrı build parçalarıdır. Yeni uygulamada CDN import'u yoktur.
+
+## Sınırlar
+
+Sunucu oyuncu/ayar/kontrol için yerel otoritedir. Sahnenin 20 dk yerel tur/kamera saati v0.2 davranışını korur; farklı zamanda açılan iki sahnenin tur fazı ortak otoriter saatte senkron değildir. Bu, Faz 3 işidir. Oyuncu/tur restart restore ve tam kalıcı olay işleme garantisi henüz yoktur.
+
+Migration runner schema_migrations sürümlerini transaction içinde uygular. İlk migration game_settings ve indeksli event_inbox tablolarını kurar. Ayarlar atomik upsert ile kaydedilir. Olay anahtarı `(source, room_id, event_id)`; en fazla 1000 kayıt ve açılışta 24 saat saklama. Kayıt penceresinin dışındaki tekrarlar için garanti yoktur. Tam tablo seti, kuyruk, streak ve moderasyon sonraki fazlardadır.
+
+Geometri/material/canvas texture/shadow ve ses bağlamı kapanışta dispose edilir; bu bir 5 saat bellek kabulü değildir. Animasyon formülleri/nota tabloları özgün v0.2 ile regresyon testinde karşılaştırılır. Askıda kalan sekmeden sonra sınırsız ses catch-up sınırlandı; beat kalitesi/10 dk senkron kabulü Faz 2'de ölçülecek.

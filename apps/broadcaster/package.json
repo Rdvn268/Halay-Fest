@@ -1,0 +1,15 @@
+{
+  "name": "@halay/broadcaster",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@halay/contracts": "*",
+    "@halay/halay-game": "*",
+    "@halay/runtime-client": "*"
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite --host 127.0.0.1"
+  }
+}
