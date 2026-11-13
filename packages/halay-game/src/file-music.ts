@@ -187,6 +187,7 @@ export class FileMusicPlayer {
   }
   applyLibrary(library: MusicLibrary) {
     const previousId = this.track?.id;
+    const previousPlaying = this.library?.transport.playing;
     this.library = library;
     this.track = library.tracks.find((t) => t.id === library.transport.trackId);
     if (this.track) {
@@ -218,7 +219,8 @@ export class FileMusicPlayer {
     }
     if (
       library.transport.sequence !== this.lastSequence ||
-      previousId !== this.track?.id
+      previousId !== this.track?.id ||
+      previousPlaying !== library.transport.playing
     ) {
       this.lastSequence = library.transport.sequence;
       void this.applyTransport(previousId !== this.track?.id).catch(

@@ -9,17 +9,18 @@ import { recordedBeatWav } from "../helpers/audio.js";
 import { mkdir, writeFile, readFile } from "node:fs/promises";
 import { performance } from "node:perf_hooks";
 import { cpus, platform, release } from "node:os";
+import { createHash } from "node:crypto";
 
 test.skip(
   process.env["RUN_GPU_PROFILE"] !== "1",
   "Opt-in hardware profile: requires full Chromium and an actual GPU.",
 );
-test("profiles six and 106 moving rigs on the actual GPU at 1080x1920", async ({
+test("measures ten-minute sync and profiles six and 106 rigs on the actual GPU at 1080x1920", async ({
   page,
   request,
   browser,
 }) => {
-  test.setTimeout(300_000);
+  test.setTimeout(900_000);
   await page.setViewportSize({ width: 1080, height: 1920 });
   const library = (await (
     await request.get("/api/music")
@@ -34,7 +35,7 @@ test("profiles six and 106 moving rigs on the actual GPU at 1080x1920", async ({
   const track = (await (
     await request.post("/api/music/upload?filename=Hardware-calibration.wav", {
       headers: { "Content-Type": "audio/wav" },
-      data: recordedBeatWav(360),
+      data: recordedBeatWav(720),
     })
   ).json()) as MusicTrack;
   await request.post(`/api/music/tracks/${track.id}`, {
@@ -63,6 +64,7 @@ test("profiles six and 106 moving rigs on the actual GPU at 1080x1920", async ({
   await page
     .getByRole("button", { name: "Ses motorunu aç", exact: true })
     .click();
+  await page.mouse.click(1050, 30);
   await request.post("/api/music/transport", {
     data: { action: "play", trackId: track.id },
   });
@@ -71,14 +73,21 @@ test("profiles six and 106 moving rigs on the actual GPU at 1080x1920", async ({
       await request.get("/api/music/telemetry")
     ).json()) as MusicTelemetry | null;
   await expect.poll(async () => (await telemetry())?.playing).toBe(true);
-  const measure = async (count: number) => {
+  const measure = async (count: number, durationMs: number) => {
     await expect
       .poll(async () => (await telemetry())?.rigs, { timeout: 20_000 })
       .toBe(count);
     await page.waitForTimeout(10_000);
+    if (count === 6) {
+      await mkdir("docs/evidence/phase-2", { recursive: true });
+      await page.screenshot({
+        path: "docs/evidence/phase-2/hardware-preview-6.png",
+      });
+    }
     const start = performance.now();
     const samples: { elapsed: number; telemetry: MusicTelemetry }[] = [];
-    while (performance.now() - start < 60_000) {
+    let nextLog = 0;
+    while (performance.now() - start < durationMs) {
       const current = (await telemetry())!;
       expect(current.rigs).toBe(count);
       expect(current.playing).toBe(true);
@@ -86,8 +95,25 @@ test("profiles six and 106 moving rigs on the actual GPU at 1080x1920", async ({
         elapsed: (performance.now() - start) / 1000,
         telemetry: current,
       });
+      if (performance.now() - start >= nextLog) {
+        console.log(
+          JSON.stringify({
+            rigs: count,
+            seconds: Math.round((performance.now() - start) / 1000),
+            fps: current.fps,
+            frameP95Ms: current.frameP95Ms,
+            driftP95Ms: current.driftP95Ms,
+            onsetP95Ms: current.onsetErrorP95Ms,
+          }),
+        );
+        nextLog += 30_000;
+      }
       await page.waitForTimeout(5000);
     }
+    samples.push({
+      elapsed: (performance.now() - start) / 1000,
+      telemetry: (await telemetry())!,
+    });
     console.log(
       JSON.stringify({
         rigs: count,
@@ -98,10 +124,23 @@ test("profiles six and 106 moving rigs on the actual GPU at 1080x1920", async ({
     );
     return samples;
   };
-  const baseline = await measure(6);
+  const baseline = await measure(6, 600_000);
+  expect(baseline.at(-1)!.telemetry.onsetSamples).toBeGreaterThan(500);
+  expect(baseline.at(-1)!.telemetry.mediaSeconds).toBeGreaterThan(590);
+  expect(baseline.at(-1)!.telemetry.driftP95Ms).toBeLessThan(100);
+  expect(baseline.at(-1)!.telemetry.onsetErrorP95Ms!).toBeLessThan(100);
   const directory = "docs/evidence/phase-2";
   await mkdir(directory, { recursive: true });
   await page.screenshot({ path: `${directory}/hardware-6-1080x1920.png` });
+  await request.post(`/api/music/tracks/${track.id}`, {
+    data: { dance: "horon", beatsPerBar: 7, beatUnit: 8 },
+  });
+  await expect(page.locator("canvas")).toHaveAttribute("data-clip", /^horon_/);
+  await page.screenshot({ path: `${directory}/hardware-horon-1080x1920.png` });
+  await request.post(`/api/music/tracks/${track.id}`, {
+    data: { dance: "halay", beatsPerBar: 2, beatUnit: 4 },
+  });
+  await expect(page.locator("canvas")).toHaveAttribute("data-clip", /^halay_/);
   for (let i = 0; i < 100; i++)
     expect(
       (
@@ -115,7 +154,7 @@ test("profiles six and 106 moving rigs on the actual GPU at 1080x1920", async ({
         })
       ).ok(),
     ).toBe(true);
-  const crowd = await measure(106);
+  const crowd = await measure(106, 60_000);
   await page.screenshot({ path: `${directory}/hardware-106-1080x1920.png` });
   await writeFile(
     `${directory}/hardware-performance.json`,
@@ -132,6 +171,11 @@ test("profiles six and 106 moving rigs on the actual GPU at 1080x1920", async ({
             "apps/broadcaster/dist/index.html",
             "utf8",
           ),
+          workletSha256: createHash("sha256")
+            .update(
+              await readFile("apps/broadcaster/dist/audio-level-worklet.js"),
+            )
+            .digest("hex"),
           characterManifest: JSON.parse(
             await readFile(
               "apps/broadcaster/public/characters/festival-dancer.manifest.json",

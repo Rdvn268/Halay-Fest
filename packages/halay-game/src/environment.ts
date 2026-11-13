@@ -203,7 +203,7 @@ export function buildEnvironment(scene: THREE.Scene) {
   for (const z of [-10, 9]) {
     const points = Array.from({ length: 33 }, (_, i) => {
       const x = -14 + (i * 28) / 32;
-      return new THREE.Vector3(x, 6 + Math.pow(x / 14, 2) * 1.8, z);
+      return new THREE.Vector3(x, 11 + Math.pow(x / 14, 2) * 1.8, z);
     });
     const cord = new THREE.Mesh(
       new THREE.TubeGeometry(
@@ -216,9 +216,13 @@ export function buildEnvironment(scene: THREE.Scene) {
       mat("#322e32"),
     );
     scene.add(cord);
+    for (const x of [-14, 14]) {
+      const support = cylinder(0.06, 0.1, 12.8, "#674c3c");
+      support.position.set(x, 6.4, z);
+    }
     for (let i = 0; i < 15; i++) {
       const x = -13 + (i * 26) / 14,
-        y = 6 + Math.pow(x / 14, 2) * 1.8;
+        y = 11 + Math.pow(x / 14, 2) * 1.8;
       const bulb = new THREE.Mesh(
         new THREE.SphereGeometry(0.105, 8, 6),
         new THREE.MeshStandardMaterial({

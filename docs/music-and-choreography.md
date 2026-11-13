@@ -47,7 +47,7 @@ npm run test:e2e
 # Gerçek süreli uzun test; en az 12 dakika bekler, zamanı hızlandırmaz:
 $env:RUN_LONG_SYNC='1'
 npx playwright test --project=phase-2-long
-# Ayrı gerçek GPU profili; aynı anda başka sahne/test çalıştırmayın:
+# Ayrı gerçek GPU profili: en az 12 dk; aynı anda başka sahne/test çalıştırmayın:
 $env:RUN_LONG_SYNC='0'
 $env:RUN_GPU_PROFILE='1'
 npx playwright test --project=phase-2-hardware

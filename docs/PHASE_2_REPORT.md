@@ -16,6 +16,10 @@ ROADMAP.md baştan sona, docs/PHASE_1_REPORT.md ve mevcut kaynaklar incelendi. Y
 
 ## Çalıştırma
 
+Son görsel doğrulamada karakter ayaklarının kaplamaya gömülmesi ve ışık/flama iplerinin yakın kamera kadrajını kapatması bulundu; zemin yüksekliği, relative el IK, dekor yüksekliği ve gerçek halka yarıçapına bağlı kadraj düzeltildi. Worklet stereo kanalların ortalama enerjisini izler; sağ kanal ritmi ve PCM passthrough unit testlidir. Panel yalnız güncel track/sequence telemetrisini oynatma durumu olarak kullanır. Aynı sequence ile restore edilen `playing=false` snapshot'ının çalan sesi durdurması WS hata enjeksiyonuyla sınanır; bu test gerçek gateway restart orkestrasyonu olarak sunulmaz.
+
+Gerçek GPU profili tam Chromium ile Radeon RX550/D3D11 üzerinde çalıştırılır; SwiftShader ölçümüyle karıştırılmaz. Son görsel düzeltmelerden önceki software JSON'u tanı kaydıdır. Final donanım testi en az 600 gerçek saniye altı rig, ardından en az 60 saniye 106 rig örnekler; otomatik süre hızlandırması yoktur.
+
 ```powershell
 git clone --branch feat/phase-2-music-and-choreography https://github.com/Rdvn268/Halay-Fest.git
 cd Halay-Fest
@@ -36,7 +40,7 @@ Node 24.13.1+ / npm 11. `npm ci` üst masaüstü klasöründe değil, package.js
 |---|---|
 | npm ci | Başarılı; 173 paket kuruldu, 181 paket audit, 0 bildirim |
 | npm run lint / typecheck | Geçti; strict TS ve uyarısız lint |
-| npm run test | **48/48**: mevcut 26 + beat/ritim 9 + müzik servis/depolama 9 + GLB/formasyon/tur 4 |
+| npm run test | **49/49**: mevcut 26 + beat/ritim 9 + müzik servis/depolama 9 + GLB/formasyon/tur 4 + stereo worklet 1 |
 | npm run build | Paketler + Node + iki UI başarılı; en büyük JS chunk yaklaşık 318,5 kB |
 | npm run check:legacy | Kaynak varlığı kontrolü geçti; ayrıca koruma/hareket/nota testleri geçti |
 | npm audit --audit-level=moderate | 0 bildirilen açık; genel güvenlik garantisi değildir |
@@ -45,7 +49,7 @@ Node 24.13.1+ / npm 11. `npm ci` üst masaüstü klasöründe değil, package.js
 | Son build gerçek süreli sync/profil | Son koşu ve görüntü doğrulaması bekleniyor; aşağıdaki metrikler final kanıtla doldurulacak |
 | GitHub CI | `185c6e9` için [CI #14](https://github.com/Rdvn268/Halay-Fest/actions/runs/43524942468) **4/4 başarılı**: Windows/Linux tooling ve dev/production Chromium. Final kanıt commit'i ayrıca kontrol edilecek |
 
-48 testin 26'sı eski koruma/altyapı regresyonudur; yeni Faz 2 kabulü olarak sayılmaz. Yeni testler gerçek WAV stream/Range, metadata/listelerin DB kapat/aç sonrası geri gelmesi, sahte/bozuk konteyner, disk hatası, chunk/header kotası, SQLite rollback, eşzamanlı upload, autoplay/repeat ve duplicate-ended davranışını sınar. GLB gerçekten parse edilir; bone quaternion'u iki farklı klipte değişir ve hash/source inventory doğrulanır.
+49 testin 26'sı eski koruma/altyapı regresyonudur; yeni Faz 2 kabulü olarak sayılmaz. Yeni testler gerçek WAV stream/Range, metadata/listelerin DB kapat/aç sonrası geri gelmesi, sahte/bozuk konteyner, disk hatası, chunk/header kotası, SQLite rollback, eşzamanlı upload, autoplay/repeat ve duplicate-ended davranışını sınar. GLB gerçekten parse edilir; bone quaternion'u iki farklı klipte değişir ve hash/source inventory doğrulanır.
 
 E2E: gerçek WAV/MP3/OGG browser decoding; liste ekleme/sıralama/metadata/reload; ses/seek ve disk hatası görünürlüğü; decoded 108 BPM kaydından analiz sonucu (oynatıcıda createOscillator çağrısı yasaklanır); yönetici Govend seçiminin BPM tahminiyle değişmemesi; Zeybek registry geçişi; gerçek AudioContext, panel kapanması, otomatik Halay→Horon, yeni oyuncu ve 7 rig; Faz 1 mock/reconnect kontrolleri. Tarayıcı içi bağlantı ortamda `missing sandboxPolicy` hatası verdi; bağımsız gerçek Chromium/Playwright ile doğrulandı.
 
@@ -70,7 +74,7 @@ Uzun senaryo: 1080×1920, altı NPC ile en az **600 gerçek saniye** dosya müzi
 | Panel kapanınca oyun + ses | Gerçek iki sayfa close sonrası ilerleme/otomatik geçiş geçti |
 | Mock TikTok korunması | Geçti; gerçek TikTok kurulmuş gibi gösterilmez |
 | Yeni görselin ekran görüntüleri | Son build görsel incelemesi bekleniyor |
-| Unit/integration/Playwright | Unit/integration 48, dev 11 ve production 11 geçti; Windows/Linux/Chromium CI 4/4 yeşil; final kanıt commit'i bekleniyor |
+| Unit/integration/Playwright | Unit/integration 49, dev 11 ve production 11 geçti; Windows/Linux/Chromium CI 4/4 yeşil; final kanıt commit'i bekleniyor |
 | Profesyonel karakter/kostüm/koreografi | **Kısmi:** özgün rig/keyframe ve tek kostümün altı rengi var. Artist üretimi çeşitli giysi kesimleri, profesyonel folk mocap ve folklor uzmanı kabulü yok |
 | İzinli gerçek müzikte işitsel kabul | **Açık:** yayın izni belgeli gerçek Halay/Horon kaydı sağlanmadı. Lisansı belirsiz kayıt indirilmedi; test sinyali gerçek müzikmiş gibi sunulmadı |
 | 100 oyuncu/60 FPS | 106 mock rig profili alınacak; hedef yayın donanımında 60 FPS kabulü açık |

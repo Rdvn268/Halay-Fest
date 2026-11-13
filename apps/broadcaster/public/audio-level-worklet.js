@@ -8,10 +8,9 @@ class HalayLevelTap extends AudioWorkletProcessor {
     for (let c = 0; c < output.length; c++)
       if (input[c]) output[c].set(input[c]);
     if (input[0]) {
-      for (const value of input[0]) {
-        this.sum += value * value;
-        this.count++;
-      }
+      for (const channel of input)
+        for (const value of channel) this.sum += (value * value) / input.length;
+      this.count += input[0].length;
       if (this.count >= sampleRate / 100) {
         this.port.postMessage({
           contextTime: currentTime,

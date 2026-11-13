@@ -10,6 +10,8 @@ export const FIGURES: Record<DanceStyle, readonly string[]> = {
   govend: ["govend_SideStep", "govend_HeelLift", "govend_CrossStep"],
   zeybek: ["zeybek_OpenArms", "zeybek_KneeBend", "zeybek_TurnStep"],
 };
+// The inner paving surface is at y=.22; feet and gift auras sit above it.
+export const FLOOR_Y = 0.23;
 export function figureAt(frame: BeatFrame) {
   const figures = FIGURES[frame.dance];
   return figures[
@@ -24,6 +26,7 @@ export function formationFor(count: number) {
     angle: number;
     radius: number;
     closed: boolean;
+    y: number;
   }[] = [];
   const capacities = [12, 22, 32, 40, 48],
     radii = [3, 5.45, 7.95, 10.4, 12.8];
@@ -43,6 +46,7 @@ export function formationFor(count: number) {
         angle: (i / capacity) * Math.PI * 2 + (ring % 2 ? 0.15 : 0),
         radius,
         closed: n >= 3 && n === capacity,
+        y: FLOOR_Y,
       });
     remaining -= n;
   }
@@ -172,6 +176,7 @@ export class RiggedDancers {
   make(name: string, isNpc: boolean, index: number, scene: T.Scene): RigDancer {
     const model = clone(this.template);
     const group = new T.Group();
+    group.position.y = FLOOR_Y;
     group.add(model);
     scene.add(group);
     let mesh: T.SkinnedMesh | undefined;
@@ -248,7 +253,7 @@ export class RiggedDancers {
       d.closed = slot.closed;
       d.target.set(
         Math.cos(slot.angle) * slot.radius,
-        0,
+        slot.y,
         Math.sin(slot.angle) * slot.radius,
       );
     });
@@ -319,7 +324,7 @@ export class RiggedDancers {
           .clone()
           .add(next.group.position)
           .multiplyScalar(0.5);
-        target.y =
+        target.y +=
           this.handHeight + Math.sin(frame.phase * Math.PI * 2) * 0.045;
         this.solveArm(d, "L", target);
         this.solveArm(next, "R", target);

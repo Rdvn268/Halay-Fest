@@ -71,6 +71,9 @@ it("loads the shipped GLB as a weighted skeleton and evaluates distinct joint an
   });
   expect(skins).toHaveLength(1);
   const mesh = skins[0]!;
+  gltf.scene.position.y = formationFor(6)[0]!.y;
+  gltf.scene.updateMatrixWorld(true);
+  expect(new T.Box3().setFromObject(gltf.scene).min.y).toBeGreaterThan(0.22);
   expect(mesh.skeleton.bones).toHaveLength(17);
   expect(mesh.geometry.getAttribute("skinWeight").count).toBe(
     mesh.geometry.getAttribute("position").count,

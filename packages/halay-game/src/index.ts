@@ -58,6 +58,7 @@ export class HalayScene {
   readonly music = new FileMusicPlayer();
   private frameTimes: number[] = [];
   private profiledCount = -1;
+  private cameraExtent = 2.75;
   private elapsed = 0;
   private period = 0;
   private round = 1;
@@ -128,6 +129,11 @@ export class HalayScene {
   }
   private layout() {
     this.rigs?.layout(this.dancers);
+    this.cameraExtent =
+      Math.max(
+        1.55,
+        ...this.dancers.map((d) => Math.hypot(d.target.x, d.target.z)),
+      ) + 1.2;
     if (this.profiledCount !== this.dancers.length) {
       this.frameTimes = [];
       this.profiledCount = this.dancers.length;
@@ -278,20 +284,8 @@ export class HalayScene {
         this.camTick = 0;
       }
       const t = settings.autoCamera ? this.elapsed : 0;
-      const extent =
-        this.dancers.length > 106
-          ? 14
-          : this.dancers.length > 66
-            ? 11.5
-            : this.dancers.length > 34
-              ? 8.8
-              : this.dancers.length > 12
-                ? 6.3
-                : this.dancers.length > 6
-                  ? 3.8
-                  : 2.8;
       const distance =
-        (extent /
+        (this.cameraExtent /
           Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2)) /
           Math.min(1, this.camera.aspect)) *
         1.1;

@@ -143,7 +143,14 @@ test("uploads and really decodes WAV/MP3/OGG, edits playlists, persists metadata
       )
       .toBe(true);
   }
-  await request.post("/api/music/transport", { data: { action: "pause" } });
+  await scene.route("**/api/music/telemetry", (route) => route.abort());
+  await manager
+    .getByRole("button", { name: "Müziği duraklat", exact: true })
+    .click();
+  await expect(manager.getByTestId("playback-state")).toHaveText(
+    "Sahneden güncel ses ölçümü bekleniyor",
+  );
+  await scene.unroute("**/api/music/telemetry");
   await expect
     .poll(async () => (await telemetry(request))?.playing)
     .toBe(false);
@@ -219,6 +226,19 @@ test("estimates BPM from streamed decoded audio while dance stays administrator-
       throw new Error("File playback must not synthesize replacement music");
     };
   });
+  let restoredPause = false;
+  await scene.routeWebSocket("**/ws", (route) => {
+    const server = route.connectToServer();
+    server.onMessage((message) => {
+      const data = JSON.parse(message.toString()) as {
+        kind: string;
+        library?: MusicLibrary;
+      };
+      if (restoredPause && data.kind === "music" && data.library)
+        data.library.transport.playing = false;
+      route.send(JSON.stringify(data));
+    });
+  });
   await scene.goto(sceneUrl);
   await expect(scene.locator("canvas")).toHaveAttribute(
     "data-asset-ready",
@@ -262,6 +282,16 @@ test("estimates BPM from streamed decoded audio while dance stays administrator-
     path: info.outputPath("zeybek-study.png"),
     fullPage: true,
   });
+  // A reopened gateway restores playing=false while retaining its persisted sequence.
+  const sequence = (await library(request)).transport.sequence;
+  restoredPause = true;
+  await request.post(`/api/music/tracks/${track.id}`, {
+    data: { title: "Restored snapshot fixture" },
+  });
+  expect((await library(request)).transport.sequence).toBe(sequence);
+  await expect
+    .poll(async () => (await telemetry(request))?.playing)
+    .toBe(false);
   expect(errors).toEqual([]);
 });
 

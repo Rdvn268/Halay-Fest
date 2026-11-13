@@ -255,7 +255,11 @@ export function MusicManager({
   const current = library?.tracks.find(
     (t) => t.id === library.transport.trackId,
   );
-  const fresh = telemetry && now - telemetrySeen.current < 5000;
+  const fresh =
+    telemetry &&
+    now - telemetrySeen.current < 5000 &&
+    telemetry.sequence === library?.transport.sequence &&
+    telemetry.trackId === library.transport.trackId;
   const saveLists = (patch: Partial<MusicLibrary>) => {
     if (!library)
       return Promise.reject(new Error("Müzik servisi hazır değil."));
