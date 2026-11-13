@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "sourceStatus": "source-present-unverified",
+  "missingFiles": [],
+  "runtimeVerification": "not-performed",
+  "files": [
+    {
+      "path": "assets/licenses/DM-Sans-OFL.txt",
+      "bytes": 4482,
+      "sha256": "9af36190332437f5ecd09974de43c1f7c77a310a996cdd8ceb25628b458840e1",
+      "kind": "document",
+      "licenseStatus": "unverified"
+    },
+    {
+      "path": "assets/licenses/Outfit-OFL.txt",
+      "bytes": 4389,
+      "sha256": "c676351bf8576b9aba743cd5eaa8c0e7ee0d51f805d720447b4df4ddb6a2e416",
+      "kind": "document",
+      "licenseStatus": "unverified"
+    },
+    {
+      "path": "assets/licenses/three-r180-MIT.txt",
+      "bytes": 1081,
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+      "kind": "document",
+      "licenseStatus": "unverified"
+    },
+    {
+      "path": "legacy/v0.2/PRESERVATION.md",
+      "bytes": 1161,
+      "sha256": "7fecdbe2909eb33a819d26dc9b71f78638659b6150c2b0fcffede5cff927cc0e",
+      "kind": "document",
+      "licenseStatus": "unverified"
+    },
+    {
+      "path": "legacy/v0.2/README.md",
+      "bytes": 2279,
+      "sha256": "2670c9d7eefa4c73f4816072bc52511996a4e632e70e03690b22c992982dc64d",
+      "kind": "document",
+      "licenseStatus": "unverified"
+    },
+    {
+      "path": "legacy/v0.2/halay-fest-v0.2-preserved.zip",
+      "bytes": 39761,
+      "sha256": "7ff18155943013f9fe383eb1e293246322fc724520738243a06a487f868808fe",
+      "kind": "archive",
+      "licenseStatus": "unverified"
+    },
+    {
+      "path": "legacy/v0.2/index.html",
+      "bytes": 37226,
+      "sha256": "139c03ca516e1cfe23d3fada41d9ae01b5e75f21449b4935f5aa4804da115ac8",
+      "kind": "source",
+      "licenseStatus": "unverified"
+    }
+  ],
+  "externalReferences": [
+    "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+    "https://fonts.googleapis.com/css2"
+  ],
+  "limitations": [
+    "File presence and hashes do not prove v0.2 opens or behaves correctly.",
+    "Archives are hashed but not extracted or inspected.",
+    "External references are lexical hints only; no remote content is fetched.",
+    "License rights require manual review, including embedded and procedural assets.",
+    "This inventory does not run the browser; consult the separate browser tests and phase report."
+  ]
+}

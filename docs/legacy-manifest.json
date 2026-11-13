@@ -1,0 +1,24 @@
+{
+  "sourceRepository": "Rdvn268/Halay-Fest",
+  "sourceBranch": "codex/phase-0-prototype-import",
+  "sourceCommit": "fc050e019d333a2cf7698875bfba2edc79e2a537",
+  "files": [
+    {
+      "path": "legacy/v0.2/index.html",
+      "originalPath": "halay-fest/index.html",
+      "bytes": 37226,
+      "sha256": "139c03ca516e1cfe23d3fada41d9ae01b5e75f21449b4935f5aa4804da115ac8"
+    },
+    {
+      "path": "legacy/v0.2/README.md",
+      "originalPath": "halay-fest/README.md",
+      "bytes": 2279,
+      "sha256": "2670c9d7eefa4c73f4816072bc52511996a4e632e70e03690b22c992982dc64d"
+    }
+  ],
+  "archive": {
+    "path": "legacy/v0.2/halay-fest-v0.2-preserved.zip",
+    "sha256": "7ff18155943013f9fe383eb1e293246322fc724520738243a06a487f868808fe",
+    "provenance": "Created during Phase 0 from the two supplied source files; not the unavailable historical ZIP."
+  }
+}

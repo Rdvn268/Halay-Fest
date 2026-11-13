@@ -1,0 +1,11 @@
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.zip binary
+*.mp3 binary
+*.wav binary
+*.glb binary
+# Preserve upstream license bytes, including their original line endings/whitespace.
+assets/licenses/*.txt -text -whitespace
