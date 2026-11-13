@@ -4,7 +4,7 @@ Windows odaklı, TikTok LIVE etkileşimlerini ileride 3D halay/horon oyununa dö
 
 Ana gereksinim: [ROADMAP.md](ROADMAP.md). Bu teslim yalnızca **Faz 0** kapsamındadır; React paneli, Node API/WebSocket, SQLite ve modüler oyun uygulaması Faz 1'de ele alınacaktır.
 
-Faz 0 kabulü tamamlandı; GitHub Windows/Linux araç kontrolleri ve Chromium smoke testi başarılı. [PR #1](https://github.com/Rdvn268/Halay-Fest/pull/1) incelemeye sunulur. Faz 1'e geçilmedi.
+Yerel Faz 0 kontrolleri geçti; GitHub'ın en güncel kabul sonucu [PR #1](https://github.com/Rdvn268/Halay-Fest/pull/1) kontrollerinde ve [faz raporunda](docs/PHASE_0_REPORT.md) izlenir. Faz 1'e geçilmedi.
 
 ## Windows kurulumu
 

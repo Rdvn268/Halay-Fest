@@ -14,7 +14,9 @@ test('v0.2 opens with six NPCs, its default settings and a rendered scene', asyn
     await expect(page.locator(`#${id}`)).toBeChecked();
   }
   await expect(page.locator('.pill.demo')).toContainText('DEMO');
-  await expect(page.locator('#clock')).not.toHaveText('20:00');
+  // Legacy clamps each rendered frame to 60 ms. Software WebGL runners can take
+  // longer than five wall-clock seconds to render one simulated second.
+  await expect(page.locator('#clock')).not.toHaveText('20:00', { timeout: 20_000 });
   await page.screenshot({ path: testInfo.outputPath('legacy-startup.png') });
   expect(errors).toEqual([]);
 });
@@ -50,7 +52,7 @@ test('pause/resume, manual cycle and saved settings survive unchanged', async ({
   await page.waitForTimeout(2100);
   await expect(page.locator('#clock')).toHaveText(pausedClock!);
   await page.locator('#pause').click();
-  await expect(page.locator('#clock')).not.toHaveText(pausedClock!);
+  await expect(page.locator('#clock')).not.toHaveText(pausedClock!, { timeout: 20_000 });
   await page.locator('#restart').click();
   await expect(page.locator('#cycleNo')).toHaveText('Döngü #2');
   await page.locator('#capacity').selectOption('50');

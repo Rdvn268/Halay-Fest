@@ -6,7 +6,7 @@
 | P0-02 | Sağlanan prototip dalını aktar, özgün baytları koru | Tamamlandı; `legacy-manifest.json`, hash testleri |
 | P0-03 | legacy arşivi ve referans görüntüleri | Tamamlandı; yeni ZIP + `evidence/` PNG'leri |
 | P0-04 | Git/AGENTS/geliştirme ortamı/klasör sınırları | Tamamlandı; Faz 1 paketleri uygulanmadı |
-| P0-05 | Lint/typecheck/test/build ve CI | Tamamlandı; yerel 13 + 4 test, GitHub Windows/Linux/Chromium 3/3 başarılı |
+| P0-05 | Lint/typecheck/test/build ve CI | Yerel 13 + 4 test geçti; Windows/Linux/Chromium CI mevcut; güncel kabul PR #1 kontrollerinde, koşu geçmişi faz raporunda |
 | P0-06 | Mevcut/eksik özellik ayrımı | Tamamlandı; `current-system.md` |
 | P0-07 | Varlık/lisans/bağımlılık/risk kaydı | Tarama tamamlandı; yayın hakkı açık risk |
 | P0-08 | GitHub dalı/PR ve legacy etiketi | Tamamlandı; PR #1, `chore/phase-0-audit`, `legacy-v0.2`; bağlantılar faz raporunda |

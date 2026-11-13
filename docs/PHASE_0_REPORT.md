@@ -1,6 +1,6 @@
 # Faz 0 Sonuç Raporu
 
-**Tarih:** 14 Kasım 2026, Europe/Istanbul. **Kapsam:** yalnızca ROADMAP §9 Faz 0. **Durum: Faz 0 tamamlandı.** Yerel teknik kabul ve GitHub Windows/Linux/Chromium CI kontrolleri geçti. Faz 1'e geçilmedi.
+**Tarih:** 14 Kasım 2026, Europe/Istanbul. **Kapsam:** yalnızca ROADMAP §9 Faz 0. **Yerel teknik kabul geçti.** Son GitHub kabul sonucu [PR #1](https://github.com/Rdvn268/Halay-Fest/pull/1) kontrollerinde izlenir; başarılı/başarısız koşu geçmişi ve saat bekleme düzeltmesi aşağıda kayıtlıdır. PR yalnızca tüm kabul kontrolleri başarılıysa incelemeye hazır yapılır. Faz 1'e geçilmedi.
 
 ## Amaç ve somut değişiklikler
 
@@ -37,6 +37,8 @@ CLI'nin `runtimeVerification: not-performed` alanı yalnızca envanter aracını
 
 İlk e2e denemesi Chromium indirmesi henüz tamamlanmadığından çalışmadı. Sonraki denemede 3 test geçti, gizli checkbox'a doğrudan tıklayan test zaman aşımına uğradı. Test görünür anahtarı kullanacak şekilde düzeltildi; oyun kaynakları değiştirilmeden 4/4 geçti. İlk kurulumdaki 8 orta önem bildirimi minimatch zincirindeydi; 11.0.8 override sonrası tarama temiz. Yerel Playwright çıktısında ortamın `NO_COLOR` / `FORCE_COLOR` çakışma uyarısı var; işlev/test başarısızlığı değil, gizlenmedi.
 
+[CI #6](https://github.com/Rdvn268/Halay-Fest/actions/runs/43509961195), `4477cba` belge commit'inde Windows/Linux başarılı, Chromium **3/4** oldu: açılış saatinin `20:00` değerinden 5 saniye içinde ilerleme beklentisi başarısızdı. Legacy her render karesini 0,06 sn ile sınırlar; yazılım WebGL ortamında bir simülasyon saniyesi daha uzun sürebilir (R06). Saat ilerleme kontrollerinin bekleme süresi **20 saniye** yapıldı; kontrol kaldırılmadı, otomatik retry eklenmedi ve oyun kodu değiştirilmedi. Bu tolerans bir FPS veya duvar saati doğruluğu kabulü değildir. Son doğrulama sonucu PR kontrollerinde izlenir.
+
 ## Görsel ve davranış kanıtı
 
 - [Açılış, altı NPC ve varsayılanlar](evidence/legacy-startup.png)
@@ -63,7 +65,7 @@ Görüntüler başarılı yerel testten alındı ve görsel olarak incelendi. Sa
 - [legacy-v0.2 etiketi](https://github.com/Rdvn268/Halay-Fest/tree/legacy-v0.2), koruma commit'i `347fdbe`.
 - Küçük commit'ler: `347fdbe` prototip/arşiv; `582d237` altyapı/test/CI; `3e5f8da` rapor/kanıt; `0833155` upstream lisans baytlarının korunması. İçe aktarılan kaynak commit'i `fc050e0` geçmişte korunur.
 - [GitHub Actions çalışması #4](https://github.com/Rdvn268/Halay-Fest/actions/runs/43509581214), test edilen kod `08331554d601a64e84c756e3eaa5c98ea2b1610b`: **Tooling (windows-latest), Tooling (ubuntu-latest), Legacy Chromium smoke — 3/3 başarılı**. Tarayıcı raporu/görüntüleri `legacy-browser-evidence` artifact'ında 14 gün saklanır.
-- Bu kayıt güncellemesi yalnızca belgeleri değiştirir; sonraki CI sonuçları PR kontrollerinde görünür. Yerel ve uzak sonuçlar ayrı kanıtlarla kayıtlıdır.
+- CI #6 başarısızlığı ve saat bekleme düzeltmesi yukarıda kayıtlıdır; en güncel CI sonuçları PR kontrollerinde görünür. Yerel ve uzak sonuçlar ayrı kanıtlarla kayıtlıdır.
 
 ## Açık riskler, gerçek/demo ayrımı ve sonraki küçük görev
 
