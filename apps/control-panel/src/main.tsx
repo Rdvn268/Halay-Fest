@@ -211,6 +211,10 @@ function App() {
                 <option value="halay">Halay · 2/4</option>
                 <option value="horon">Horon · 7/8</option>
               </select>
+              <small>
+                Müziksiz önizleme içindir. Dosya çalarken Müzik Yöneticisi'ndeki
+                dans seçimi kullanılır.
+              </small>
             </label>
             <label>
               Ses seviyesi · {settings.musicVolume}%

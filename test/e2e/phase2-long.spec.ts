@@ -87,6 +87,19 @@ test("real ten-minute audio sync followed by 100-player 1080x1920 profiling", as
   const directory = "docs/evidence/phase-2";
   await mkdir(directory, { recursive: true });
   await page.screenshot({ path: `${directory}/halay-1080x1920.png` });
+  await request.post(`/api/music/tracks/${track.id}`, {
+    data: { dance: "horon", beatsPerBar: 7, beatUnit: 8 },
+  });
+  await expect(page.locator("canvas")).toHaveAttribute("data-clip", /^horon_/, {
+    timeout: 15_000,
+  });
+  await page.screenshot({ path: `${directory}/horon-1080x1920.png` });
+  await request.post(`/api/music/tracks/${track.id}`, {
+    data: { dance: "halay", beatsPerBar: 2, beatUnit: 4 },
+  });
+  await expect(page.locator("canvas")).toHaveAttribute("data-clip", /^halay_/, {
+    timeout: 15_000,
+  });
   const renderer = await page.locator("canvas").evaluate((canvas) => {
     const gl = (canvas as HTMLCanvasElement).getContext("webgl2");
     const ext = gl?.getExtension("WEBGL_debug_renderer_info");

@@ -1,4 +1,20 @@
-# Görev panosu — Faz 1
+# Görev panosu — Faz 2
+
+Faz 1 kullanıcı tarafından kabul edildi. Faz 2 dalı `feat/phase-2-music-and-choreography`, henüz birleştirilmemiş `feat/phase-1-modular-runtime` üzerine kuruldu; PR tabanı Faz 1'dir. Main'e otomatik merge yapılmaz.
+
+| ID | İş | Doğrulama / durum |
+|---|---|---|
+| P2-01 | Stream upload, format/süre/kota, disk + SQLite listeler | Unit/integration: kalıcılık, Range, hata, rollback, eşzamanlılık |
+| P2-02 | React Müzik Yöneticisi ve sahnede dosya çalma | Gerçek WAV/MP3/OGG decoding, sıra/metadata, hata ve panel close E2E |
+| P2-03 | AudioContext beat-clock, onset analizi, manuel grid | Clock/meter/BPM unit; gerçek süreli uzun test ve ham JSON |
+| P2-04 | Rigged GLB, farklı Halay/Horon klipleri, IK | Gerçek asset parse/kemik hareketi; tarayıcı görüntüleri |
+| P2-05 | 9:16 kamera, 100 mock + 6 NPC profili | FPS/frame/heap kaydı; hedef donanım 60 FPS kabulü açık |
+| P2-06 | Profesyonel yöresel görsel/işitsel kabul | Özgün stilize başlangıç varlıkları mevcut; izinli gerçek kayıt, folklor incelemesi ve yayın donanımı doğrulaması açık |
+| P2-07 | PR, rapor, CI | Açık kabul konusu varken taslak PR; güncel sonuç PHASE_2_REPORT |
+
+**Faz 3 başlamadı.** Önce Faz 2'nin açık görsel/işitsel ve donanım kabul konuları kapatılmalıdır. Beş saatlik gerçek soak, ROADMAP Faz 8 çıkış kapısıdır; bu çalışmada tamamlanmış gösterilmez.
+
+## Faz 1 tarihsel kayıt
 
 Faz 0 kabul edildi; kaynaklar/ZIP/etiket ve önceki rapor korunur. PR #1 main'e merge edilmediğinden Faz 1 dalı feat/phase-1-modular-runtime, chore/phase-0-audit üzerine kuruludur.
 
@@ -15,4 +31,4 @@ Faz 0 kabul edildi; kaynaklar/ZIP/etiket ve önceki rapor korunur. PR #1 main'e 
 
 Kabul kapısı: panel kapanınca sahne devam eder; mock olay panelden sahneye gerçek WS ile ulaşır; typecheck/build/testler geçer. Güncel sonuç Faz 1 raporu ve PR kontrollerindedir.
 
-Sonraki fazlar başlanmadı: Faz 2 rig/beat/senkron kalitesi; Faz 3 ortak tur saati/FIFO/restart restore; Faz 4 tam streak/queue/rule/replay; Faz 5 gerçek TikTok; Faz 6–10 sıralarıyla bekler. Sonraki faz otomatik başlatılmaz.
+Faz 1 sonundaki sırada Faz 2 rig/beat/senkron kalitesi bekliyordu; bu dalda yukarıdaki işlerle ele alındı. Faz 3 ortak tur saati/FIFO/restart restore; Faz 4 tam streak/queue/rule/replay; Faz 5 gerçek TikTok ve Faz 6–10 sıralarıyla bekler. Sonraki faz otomatik başlatılmaz.

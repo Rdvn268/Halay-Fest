@@ -1,4 +1,8 @@
-# Olay ve veri sözleşmeleri — Faz 1
+# Olay ve veri sözleşmeleri — Faz 1–2
+
+Müzik sözleşmeleri `packages/contracts/src/music.ts` içindedir: MusicTrack, Playlist, MusicLibrary, TransportCommand, RhythmAnalysis, MusicTelemetry ve dört DanceStyle. Parça ID'si UUID; track metadata patch ve listeler strict Zod doğrulamasından geçer. BPM tahmin kaynağı default/analysis/manual olarak ayrıdır; dans türü BPM'den çıkarılmaz.
+
+Müzik HTTP yolları ve sınırları [müzik rehberinde](music-and-choreography.md) tanımlıdır. `music` mesajı tam kütüphane + revision/transport sequence taşır; `music_telemetry` medya zamanı, playing/unlocked, clock/onset farkları, FPS/frame/heap, rig/draw/klip ve el farkı taşır. Telemetri kalıcı olay günlüğü değildir; serviste yalnız son örnek tutulur. Kütüphane/transport kaydı kalıcıdır; ses çıkışı sahnededir. Beklenen transport sequence taşımayan `ended` reddedilir; eski sequence 409 döner. Yeniden bağlanan sahne en güncel kütüphaneyi alır; iki aktif sesli sahneyi senkron çalma protokolü değildir.
 
 Kaynak: `packages/contracts/src/index.ts`. Kanonik LiveEvent ROADMAP §5.1 alanlarını taşır: eventId, source, roomId, receivedAt, type, opsiyonel sourceTimestamp/userId/displayName ve payload. Protokol sürümü 1. Genel sözleşmede mock/replay/tiktok_unofficial tanımlıdır; uygulanan tek adaptör **MockSourceAdapter**'dır.
 
@@ -9,7 +13,7 @@ Kaynak: `packages/contracts/src/index.ts`. Kanonik LiveEvent ROADMAP §5.1 alanl
 | POST /api/mock | Strict input: chat/follow/gift/like, userId, displayName, opsiyonel eventId; chat için message, gift için izinli gift türü |
 | POST /api/settings | Tam ayarlar; mevcut oyuncudan küçük kapasite reddedilir; kayıt hatası başarı sayılmaz |
 | POST /api/control | pause/resume/new_round/clear_players; yerel demo |
-| WS /ws | kind=snapshot veya kind=event; istemciden mutasyon kabul edilmez |
+| WS /ws | kind=snapshot/event/music/music_telemetry; istemciden mutasyon kabul edilmez |
 
 Mock kaynak kullanıcıdan kabul edilmez; sunucu source=mock, roomId=local-demo, receivedAt ve eksikse eventId üretir. Sahte TikTok bağlantı başarısı üretilmez. DisplayName React/metin/canvas ile çizilir; userId oyuncu anahtarıdır. Aynı ID'nin yeni adı bu iskelette aktif karakter adını güncellemez; profil politikası sonraki fazdadır.
 

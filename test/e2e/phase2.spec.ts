@@ -169,6 +169,10 @@ test("uploads and really decodes WAV/MP3/OGG, edits playlists, persists metadata
         ).settings.musicVolume,
     )
     .toBe(0);
+  await page.screenshot({
+    path: info.outputPath("music-manager-ready.png"),
+    fullPage: true,
+  });
   await page.route("**/api/music/upload*", (route) =>
     route.fulfill({
       status: 507,
