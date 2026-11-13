@@ -1,0 +1,168 @@
+{
+  "environment": {
+    "date": "2026-11-13T23:44:18.539Z",
+    "platform": "win32",
+    "release": "10.0.22631",
+    "cpu": "AMD Ryzen 5 5500                               ",
+    "browser": "158.0.8127.18",
+    "renderer": {
+      "name": "ANGLE (AMD, Radeon RX550/550 Series (0x0000699F) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "width": 1080,
+      "height": 1920
+    },
+    "productionIndex": "<!doctype html><html lang=\"tr\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>HALAY FEST broadcaster</title>  <script type=\"module\" crossorigin src=\"/assets/index-tfIivJWg.js\"></script>\n  <link rel=\"modulepreload\" crossorigin href=\"/assets/three-core-B6j4Pd-K.js\">\n  <link rel=\"modulepreload\" crossorigin href=\"/assets/three-renderer-DKzXSLMU.js\">\n  <link rel=\"stylesheet\" crossorigin href=\"/assets/index-4LcAwSnW.css\">\n</head><body><div id=\"root\"></div></body></html>\n",
+    "workletSha256": "74d2f9347dc65d758bc657f4b2c00de10206b4feb2603754c39184aca806fdcf",
+    "characterManifest": {
+      "path": "festival-dancer.glb",
+      "sha256": "3e6fdfc7b6fdcce9defdec035c6df2684e7234c76fcff39c51b25dd7ba66d4a6",
+      "source": "scripts/create-character.ts",
+      "generatorSha256": "9e5f59789ccab33c03c3ee8a2a47c0e73fd1e6099369fdf17d364b5af4226bc6",
+      "license": "CC0-1.0",
+      "thirdPartyModels": [],
+      "bones": 17,
+      "clips": [
+        "halay_ThreeStep",
+        "halay_HeelTap",
+        "halay_CrossStep",
+        "horon_QuickPulse",
+        "horon_KneeLift",
+        "horon_ShoulderShake",
+        "govend_SideStep",
+        "govend_HeelLift",
+        "govend_CrossStep",
+        "zeybek_OpenArms",
+        "zeybek_KneeBend",
+        "zeybek_TurnStep"
+      ],
+      "bytes": 1761948
+    },
+    "fiveHourSoak": "NOT RUN",
+    "realTwentyMinuteRound": "NOT RUN",
+    "scene": "one active scene, real file playback, no panel"
+  },
+  "errors": [],
+  "stages": {
+    "6 NPC": {
+      "measuredSeconds": 602.2049751,
+      "samples": 121,
+      "summarySamples": 115,
+      "fps": {
+        "min": 82.207546652783,
+        "median": 92.60259595944024,
+        "max": 112.2040617870365
+      },
+      "frameP95Ms": {
+        "min": 13.900000000001455,
+        "median": 14,
+        "max": 14
+      },
+      "jsHeapMiB": {
+        "min": 24.213934898376465,
+        "median": 31.28243350982666,
+        "max": 49.31361961364746
+      },
+      "clockDriftP95Ms": {
+        "min": 6.652765772884095,
+        "median": 6.929325316548329,
+        "max": 7.125558360794315
+      },
+      "onsetGridP95Ms": {
+        "min": 9.148146594696982,
+        "median": 9.257745088234515,
+        "max": 9.493708811277202
+      },
+      "handGapMeters": {
+        "min": 6.149920984193373e-13,
+        "median": 0.017263998239924416,
+        "max": 0.019599357603580232
+      },
+      "last": {
+        "clientId": "32807aba-7871-443f-914b-348be99204a6",
+        "sequence": 97,
+        "trackId": "4a41ba3b-8a1f-4cbb-8468-58b8e5bf4f11",
+        "mediaSeconds": 612.240075,
+        "durationSec": 720,
+        "playing": true,
+        "unlocked": true,
+        "error": null,
+        "bpm": 120,
+        "beat": 1224.183272383079,
+        "bar": 612,
+        "driftP95Ms": 6.862800188628171,
+        "onsetErrorP95Ms": 9.301279024612086,
+        "onsetSamples": 600,
+        "fps": 85.28905883523548,
+        "frameP95Ms": 14,
+        "heapMB": 31.99701690673828,
+        "characters": 6,
+        "rigs": 6,
+        "drawCalls": 34,
+        "triangles": 50538,
+        "clip": "halay_ThreeStep",
+        "handGapMeters": 3.2661240773734435e-12,
+        "analysisSeconds": 29.504826153815088
+      }
+    },
+    "100 mock + 6 NPC": {
+      "measuredSeconds": 60.321585899999945,
+      "samples": 13,
+      "summarySamples": 13,
+      "fps": {
+        "min": 66.92320562154927,
+        "median": 71.8786688070545,
+        "max": 77.21014026508816
+      },
+      "frameP95Ms": {
+        "min": 20.79999999993015,
+        "median": 20.800000000046566,
+        "max": 20.900000000023283
+      },
+      "jsHeapMiB": {
+        "min": 33.65553092956543,
+        "median": 43.54264450073242,
+        "max": 62.39328956604004
+      },
+      "clockDriftP95Ms": {
+        "min": 6.861998772251354,
+        "median": 6.986671686149748,
+        "max": 7.014710856083184
+      },
+      "onsetGridP95Ms": {
+        "min": 9.27351767569462,
+        "median": 9.307194083817194,
+        "max": 9.454087999074545
+      },
+      "handGapMeters": {
+        "min": 3.275263900185105e-12,
+        "median": 0.006037706376166378,
+        "max": 0.006880360475597056
+      },
+      "last": {
+        "clientId": "32807aba-7871-443f-914b-348be99204a6",
+        "sequence": 97,
+        "trackId": "4a41ba3b-8a1f-4cbb-8468-58b8e5bf4f11",
+        "mediaSeconds": 686.231151,
+        "durationSec": 720,
+        "playing": true,
+        "unlocked": true,
+        "error": null,
+        "bpm": 120,
+        "beat": 1372.159703506887,
+        "bar": 686,
+        "driftP95Ms": 7.014710856083184,
+        "onsetErrorP95Ms": 9.27351767569462,
+        "onsetSamples": 600,
+        "fps": 69.78854072161333,
+        "frameP95Ms": 20.800000000046566,
+        "heapMB": 50.8850212097168,
+        "characters": 106,
+        "rigs": 106,
+        "drawCalls": 484,
+        "triangles": 863189,
+        "clip": "halay_ThreeStep",
+        "handGapMeters": 0.0060073116125298545,
+        "analysisSeconds": 29.994025082547864
+      }
+    }
+  }
+}

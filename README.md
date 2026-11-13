@@ -4,6 +4,8 @@ Windows odaklı, yerelde çalışan 3D halay/horon simülatörü. **Faz 2 çalı
 
 ## Başlatma
 
+[Yeni iskeletli 3D sahne](docs/evidence/phase-2/hardware-preview-6.png) · [Müzik Yöneticisi](docs/evidence/phase-2/music-manager.png) · [Ölçüm ve görüntü kanıtları](docs/evidence/phase-2/README.md)
+
 Git, Node **24 LTS** (en az 24.13.1) ve npm **11** gerekir. Sürüm seçimi `.nvmrc` / `.node-version` ile yapılabilir.
 
 ```powershell

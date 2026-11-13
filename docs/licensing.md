@@ -10,7 +10,7 @@
 | music-metadata 12.5.0 | Kurulu paketin MIT metni: [yerel kopya](../assets/licenses/music-metadata-MIT.txt), [birincil kaynak](https://github.com/Borewit/music-metadata) | Node tarafında konteyner/süre çözümlemesi; yüklenen kaydın yayın iznini doğrulamaz. |
 | Kullanıcının yüklediği müzik | Dosya ve metadata yerel kalır; uygulama yayın hakkı devralmaz | Bu çalışmaya izin belgeli gerçek Halay/Horon icrası teslim edilmedi. Canlı müzik hakları ve gerçek icrada işitsel/koreografik kabul açık. |
 
-Yeni varlık lisansı tüm depoya veya legacy'ye lisans atamaz. Soundfile/numpy yalnız test fixture kodlamak için geçici geliştirme araçları olarak kullanıldı; uygulama veya CI bağımlılığına eklenmedi. Ses decoder'ı tarayıcıya aittir; codec/platform desteği değişebilir. Lisans kanıtı bulunmayan arama sonuçlarından müzik/model indirilmedi.
+Yeni varlık lisansı tüm depoya veya legacy'ye lisans atamaz. Soundfile/numpy/matplotlib yalnız test fixture kodlamak için geçici geliştirme araçları olarak kullanıldı; uygulama veya CI bağımlılığına eklenmedi. Ses decoder'ı tarayıcıya aittir; codec/platform desteği değişebilir. Lisans kanıtı bulunmayan arama sonuçlarından müzik/model indirilmedi.
 
 | Varlık / kaynak | İnceleme sonucu | Hak/kanıt durumu |
 |---|---|---|
