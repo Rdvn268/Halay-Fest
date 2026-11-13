@@ -1,30 +1,40 @@
 # HALAY FEST
 
-Windows odaklı, TikTok LIVE etkileşimlerini ileride 3D halay/horon oyununa dönüştürmeyi hedefleyen proje. **Şu an çalışan çıktı v0.2 yerel simülasyonudur. Gerçek TikTok bağlantısı yoktur.**
+Windows odaklı, yerelde çalışan 3D halay/horon simülatörü. **Faz 1: modüler iskelet ve mock aktarım. Gerçek TikTok bağlantısı desteklenmiyor.** Ana gereksinim [ROADMAP.md](ROADMAP.md); Faz 0 referansı [korunmuş v0.2](legacy/v0.2/README.md).
 
-Ana gereksinim: [ROADMAP.md](ROADMAP.md). Bu teslim yalnızca **Faz 0** kapsamındadır; React paneli, Node API/WebSocket, SQLite ve modüler oyun uygulaması Faz 1'de ele alınacaktır.
+## Başlatma
 
-Yerel Faz 0 kontrolleri geçti; GitHub'ın en güncel kabul sonucu [PR #1](https://github.com/Rdvn268/Halay-Fest/pull/1) kontrollerinde ve [faz raporunda](docs/PHASE_0_REPORT.md) izlenir. Faz 1'e geçilmedi.
-
-## Windows kurulumu
-
-Node.js **24 LTS** (en az 24.13.1), npm **11** ve Git gerekir. Node sürümünü `.nvmrc` / `.node-version` ile seçebilirsiniz. Yerelde doğrulanan sürümler: Node 24.13.1, npm 11.8.0.
+Git, Node **24 LTS** (en az 24.13.1) ve npm **11** gerekir. Sürüm seçimi `.nvmrc` / `.node-version` ile yapılabilir.
 
 ```powershell
-git clone https://github.com/Rdvn268/Halay-Fest.git
+git clone --branch feat/phase-1-modular-runtime https://github.com/Rdvn268/Halay-Fest.git
 cd Halay-Fest
-git switch chore/phase-0-audit
-node --version
-npm --version
 npm ci
 npm run dev
 ```
 
-`http://127.0.0.1:4173` adresini Chrome/Edge'de açın. `Ctrl+C` sunucuyu durdurur. Port doluysa PowerShell'de `$env:PORT=4174` ayarlayın. `.env.example` gelecekteki servisler için belgedir; bu fazda `.env` yüklenmez.
+| Yerel pencere/servis | Geliştirme | Build önizlemesi |
+|---|---|---|
+| Three.js yayın sahnesi | http://127.0.0.1:5173 | http://127.0.0.1:4174 |
+| React yönetim paneli | http://127.0.0.1:5174 | http://127.0.0.1:4175 |
+| Node API / WebSocket | http://127.0.0.1:8787/api/health | Aynı |
 
-Three.js ve Google Fonts dışarıdan yüklenir, dolayısıyla **internet gerekir**. Müzik için bir kez **Müziği başlat** düğmesine basın. `katıl`, `Takip et`, toplu katılım ve hediyeler simülasyondur. Sahneyi büyütme mevcut prototip özelliğidir; yayın kurulum kabulü yapılmadı.
+Panel ve sahneyi ayrı sekmelerde açın. Panelde demo kullanıcı ID ve adını girip `katıl` yorumu gönderin. Karakter sahneye eklenir; aynı ID ikinci karakter açmaz. Hediyeler **tekli mock efektlerdir**. Müziği tarayıcı izni nedeniyle **yayın sahnesindeki Müziği başlat** düğmesinden bir kez açın. Paneldeki dans/ses/ayar değişiklikleri **Ayarları kaydet** ile uygulanır.
 
-## Kontroller
+Panel kapandığında sahne devam eder. Yerel servis bağlantısı kesilince durum görünür; sahne render etmeyi sürdürür ve WS yeniden bağlanır. TikTok bağlantısı kurulmuş gibi gösterilmez. `Ctrl+C` başlatıcının servislerini kapatır.
+
+```powershell
+npm run build
+npm start
+```
+
+`build`, ortak paketleri, Node servisini ve iki Vite uygulamasını derler. `start`, bu build'lerin localhost önizlemesidir; Windows kurulum paketi veya internete dağıtım değildir. Yeni uygulama Three.js'i npm'den paketler; CDN/font isteği yapmaz. Eski prototip için `npm run dev:legacy` → http://127.0.0.1:4173; eski HTML'nin CDN bağımlılığı değişmedi.
+
+## Veri ve test ortamı
+
+SQLite varsayılanı `data/halay-fest.sqlite`; klasör otomatik oluşur, Git'e alınmaz. Farklı dosya için PowerShell'de `$env:DATABASE_PATH='data/dev.sqlite'` ayarlayın. Gateway `.env` dosyasını otomatik yüklemez; `.env.example` örnektir. Ayarlar yeniden açılışta korunur. Oyuncular ve tur durumu bu fazda bellektedir; tam restart restore Faz 3'tedir.
+
+Mock olay günlüğü en fazla 1000 kayıt tutar; açılışta 24 saatten eski kayıtlar temizlenir. Tekilleştirme bu sınırlı kayıt penceresini kapsar. Tam inbox/queue/streak/rule motoru Faz 4'tedir. Gerçek izleyici kaydı, şifre veya çerez kullanmayın.
 
 ```powershell
 npm run lint
@@ -35,18 +45,22 @@ npm run check:legacy
 npm audit --audit-level=moderate
 npx playwright install chromium
 npm run test:e2e
+$env:TEST_PRODUCTION='1'
+npm run test:e2e
 ```
 
-`npm run verify` lint, typecheck, birim/HTTP/koruma testleri ve build'i sırayla çalıştırır. `npm run build` yalnızca Faz 0 TypeScript araçlarını `dist/scripts/` altına derler; oyunu yeniden paketlemez. Playwright testi ayrıca çalıştırılır ve gerçek Chromium/WebGL/Web Audio ile prototipi açar; CDN erişimi gerekir. Linux'ta tarayıcı bağımlılıkları için `npx playwright install --with-deps chromium` kullanın.
+`npm run verify`: lint + typecheck + birim/entegrasyon testleri + build. Playwright ayrıca çalıştırılır; geliştirme ve üretim önizlemesini destekler. Linux'ta `npx playwright install --with-deps chromium` kullanın. E2E yalnızca `data/e2e.sqlite` içinde sentetik verilerle çalışır; 4173, 8787 ve uygulama portlarının boş olması gerekir. Legacy testleri internet ister; yeni sahne CDN gerektirmez.
 
-`npm run audit:legacy` salt okunur SHA-256/varlık envanteri üretir. `npm run check:legacy` kaynaklar eksikse sıfırdan farklı kodla çıkar; kaynak varlığı oyun kabulü değildir. Çalışma kabulü rapor ve tarayıcı kanıtlarıyla değerlendirilir.
+## Modüller ve kabul kapsamı
 
-## Klasörler ve kanıtlar
+- `apps/broadcaster`: bağımsız Three.js yayın penceresi, native Web Audio ve HUD.
+- `apps/control-panel`: React yönetim paneli; doğrulanmış servis durumu, ayarlar, mock kontrolleri ve olay listesi.
+- `services/live-gateway`: Node HTTP/WS, mock adaptörü, SQLite migration ve yerel kayıt.
+- `packages/contracts`: Zod şemaları ve sürümlü DTO; `game-core`: saf oyuncu/ayar/kontrol durumu.
+- `packages/halay-game`: v0.2'den taşınan geometri, dans, kamera, efekt ve müzik modülleri.
+- `packages/runtime-client`: doğrulamalı WS istemcisi ve tekrar bağlanma.
+- `legacy/v0.2`: değişmemiş kaynaklar, SHA-256 manifesti ve koruma ZIP'i.
 
-- `legacy/v0.2/`: değişmemiş kaynaklar ve yeni koruma ZIP'i; kaynak dal geçmişi korunmuştur.
-- `scripts/`: denetim CLI'ı ve yalnızca localhost'ta çalışan prototip önizlemesi.
-- `test/unit/`, `test/e2e/`: Faz 0 doğrulamaları; `test/soak/` henüz plan.
-- `apps/`, `services/`, `packages/`: yol haritasındaki sınırları gösteren açıklama klasörleri; çalışır Faz 1 paketleri değildir.
-- [Faz 0 raporu](docs/PHASE_0_REPORT.md), [mevcut sistem](docs/current-system.md), [görev panosu](docs/TASK_BOARD.md), [risk/bağımlılıklar](docs/risks-and-dependencies.md), [lisans kaydı](docs/licensing.md).
+[Faz 1 raporu](docs/PHASE_1_REPORT.md), [mimari](docs/architecture.md), [olay sözleşmeleri](docs/event-contracts.md), [görev panosu](docs/TASK_BOARD.md), [riskler](docs/risks-and-dependencies.md), [lisanslar](docs/licensing.md).
 
-Bu sürüm için 5 saat dayanıklılık, 100 oyuncuda FPS, gerçek TikTok, güvenli LAN kontrolü veya yayın hazır olma iddiası yoktur. Depo şu anda herkese açıktır; görünürlüğü bu görevde değiştirilmedi. Şifre, çerez, gerçek izleyici kaydı veya kişisel veri commit etmeyin.
+Faz 2–10 uygulanmadı. Gelişmiş koreografi/beat geçişleri, ortak otoriter tur saati, FIFO kuyruk, streak, tam kurallar, gerçek TikTok, güvenli LAN paneli, 100 oyuncu FPS ve 5 saat soak henüz kabul edilmiş değildir. Node 24.13.1 yerelde SQLite için deneysel API uyarısı verir; ayrıntılar rapordadır.

@@ -1,5 +1,7 @@
 # Risk ve bağımlılık kaydı — 14 Kasım 2026
 
+Faz 0 tablosu aşağıda tarihsel gözlemdir; güncel Faz 1 karşılıkları bu belgenin sonundadır.
+
 ## Mevcut riskler
 
 | ID | Risk / gözlem | Sonraki eylem |
@@ -34,3 +36,31 @@ Tümü geliştirme bağımlılığıdır; doğrudan sürümler sabittir, transit
 TypeScript 7 yerine 6.0.3 seçildi: typescript-eslint 8.72.2 peer aralığı `>=4.8.4 <6.1.0`. Başlangıç kurulumundaki 8 orta önem bildirimi aynı minimatch zincirinden geldi. [GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249) için `minimatch` 11.0.8 override uygulandı; lint/typecheck/test/build ve `npm audit` ile doğrulandı. Bu büyük sürüm override'ı upstream uyumlu geçiş sunduğunda yeniden değerlendirilmelidir. Güncel taramada 0 bildirim, genel güvenlik garantisi değildir.
 
 Node 24 LTS ve npm 11 kullanılır ([Node sürüm tablosu](https://nodejs.org/en/about/previous-releases)). `npm ci` kilit dosyasına göre kurar ([npm belgesi](https://docs.npmjs.com/cli/v11/commands/npm-ci/)). GitHub Actions'lar doğrulanan commit SHA'larına sabitlendi; CI Windows/Linux üzerinde aynı komutları çalıştırır ([Actions Node rehberi](https://docs.github.com/en/actions/tutorials/build-and-test-code/nodejs)). Playwright gerçek Chromium indirir; yerel sürüm 158.0.8127.18, SwiftShader yazılım WebGL kullanır. Bu ortam FPS ölçümü için yayın donanımını temsil etmez.
+
+## Faz 1 güncellemesi
+
+- R01: yeni uygulama Three.js'i paketler, CDN/font yüklemez. Legacy eski CDN bağımlılığını korur.
+- R02: sahne/panel ayrıldı; panel kapanması ve WS kesintisinde render devamı E2E ile sınanır.
+- R03: mock kararlı userId ve sınırlı event ID tekilleştirmesi var; tam üretim idempotency/streak açık.
+- R04: kapasite aşımı/uygunsuz kapasite azaltma reddedilir; FIFO yok.
+- R05: karakter/sahne dispose eklendi; 5 saat leak kabulü yapılmadı.
+- R06: özgün hareket/nota tabloları korunur; render dt clamp ve bağımsız yerel tur fazı sürer. Ortak tur saati Faz 3, beat ölçümü Faz 2.
+- R07: ayrı 9:16 sahne ve NPC etiketleri var; TikTok güvenli alan/100 oyuncu okunabilirliği henüz kabul edilmedi.
+- R08–R12: yayın hakları, public repo veri riski, tarihsel ZIP, gerçek TikTok ve uzun süre/performans riskleri açık.
+- R13: kullanılan Node 24.13.1 node:sqlite için ExperimentalWarning verir; gizlenmez. Sürüm değişiminde migration/reopen testleri zorunlu.
+- R14: inbox 1000 kayıt / açılışta 24 saat. Pencere dışı tekrarlar ve kaçan geçici efektler için recovery garantisi yok. Oyuncu/tur restart restore yok; ayarlar geri gelir.
+
+| Yeni doğrudan bağımlılık | Sürüm | Lisans |
+|---|---|---|
+| three | 0.180.0 | MIT |
+| react / react-dom | 19.3.1 | MIT |
+| ws | 8.23.0 | MIT |
+| zod | 4.6.7 | MIT |
+| vite | 8.3.8 | MIT |
+| tsx | 4.23.15 | MIT |
+| prettier (biçimleme aracı) | 3.10.1 | MIT |
+| @types/three | 0.180.0 | MIT |
+| @types/react / @types/react-dom | 19.3.0 | MIT |
+| @types/ws | 8.18.2 | MIT |
+
+Metadata ve kurulan LICENSE dosyaları kontrol edildi. SQLite için ek native bağımlılık kurulmadı. [Vite preview proxy](https://vite.dev/config/preview-options.html#preview-proxy), [Rolldown kod bölme](https://rolldown.rs/reference/OutputOptions.codeSplitting) ve [Playwright WS hata enjeksiyonu](https://playwright.dev/docs/api/class-websocketroute) birincil belgelerden doğrulandı.

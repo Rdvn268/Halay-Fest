@@ -1,4 +1,4 @@
-# Varlık ve lisans envanteri — Faz 0
+# Varlık ve lisans envanteri — Faz 0–1
 
 | Varlık / kaynak | İnceleme sonucu | Hak/kanıt durumu |
 |---|---|---|
@@ -15,3 +15,9 @@ Kaynakta uzaktan yüklenen modül/font dışında HTTP çağrısıyla TikTok/hed
 Yeni oyun müziği/modeli eklenmeden önce eser ve kayıt sahibi, kaynak, lisans sürümü, ticari kullanım, streaming/platform/coğrafya kapsamı ve gerekli atıf kayda geçirilmelidir. Faz 0 teknik kabulü canlı yayın hak onayı değildir.
 
 Projenin tamamına MIT veya başka lisans ataması yapılmadı; kullanıcı teslim ettiği kaynaklar için ayrıca lisans seçebilir. Araç lisansları [bağımlılık kaydındadır](risks-and-dependencies.md). `npm audit` CDN'den yüklenen Three.js/fontları taramaz.
+
+## Faz 1 ekleri
+
+Yeni uygulama Three.js 0.180.0'ı npm'den paketler. Google Fonts veya yeni ses/model/görsel varlığı eklenmedi; sistem fontu kullanılır. v0.2 geometri, nota ve hareket kaynakları kendi proje kodunun taşınmasıdır; ayrı ticari yayın hakkı onayı halen yoktur.
+
+React/react-dom/scheduler, Zod ve Three.js MIT lisansları kurulan sürümlerin LICENSE dosyalarından `apps/*/public/third-party-notices.txt` içine kopyalandı. Vite bu dosyayı iki uygulamanın build'ine dahil eder. Araç lisansları bağımlılık kaydındadır. Kod taşıma, sahiplik/yayın hakkı onayı yerine geçmez.

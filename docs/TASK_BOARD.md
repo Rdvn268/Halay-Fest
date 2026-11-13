@@ -1,18 +1,18 @@
-# Görev panosu — Faz 0
+# Görev panosu — Faz 1
 
-| ID | İş | Durum / kanıt |
+Faz 0 kabul edildi; kaynaklar/ZIP/etiket ve önceki rapor korunur. PR #1 main'e merge edilmediğinden Faz 1 dalı feat/phase-1-modular-runtime, chore/phase-0-audit üzerine kuruludur.
+
+| ID | İş | Kanıt |
 |---|---|---|
-| P0-01 | ROADMAP tamamını ve mevcut kaynakları incele | Tamamlandı; `current-system.md` |
-| P0-02 | Sağlanan prototip dalını aktar, özgün baytları koru | Tamamlandı; `legacy-manifest.json`, hash testleri |
-| P0-03 | legacy arşivi ve referans görüntüleri | Tamamlandı; yeni ZIP + `evidence/` PNG'leri |
-| P0-04 | Git/AGENTS/geliştirme ortamı/klasör sınırları | Tamamlandı; Faz 1 paketleri uygulanmadı |
-| P0-05 | Lint/typecheck/test/build ve CI | Yerel 13 + 4 test geçti; Windows/Linux/Chromium CI mevcut; güncel kabul PR #1 kontrollerinde, koşu geçmişi faz raporunda |
-| P0-06 | Mevcut/eksik özellik ayrımı | Tamamlandı; `current-system.md` |
-| P0-07 | Varlık/lisans/bağımlılık/risk kaydı | Tarama tamamlandı; yayın hakkı açık risk |
-| P0-08 | GitHub dalı/PR ve legacy etiketi | Tamamlandı; PR #1, `chore/phase-0-audit`, `legacy-v0.2`; bağlantılar faz raporunda |
+| P1-01 | npm workspace + strict TS | Paket manifestleri, typecheck/build |
+| P1-02 | v0.2 geometri/dans/müzik taşıma | halay-game ve özgün hareket/nota karşılaştırma testleri |
+| P1-03 | Bağımsız sahne + React panel | Ayrı URL, panel kapanma E2E |
+| P1-04 | Node API/WS + mock adaptörü | Gerçek soket, şema/origin testleri |
+| P1-05 | Oyuncu/olay/ayar modelleri | contracts ve game-core testleri |
+| P1-06 | SQLite migration/ayar/olay kaydı | Migration/reopen/bounded log testleri |
+| P1-07 | Dev ve build önizlemesi | dev/build/start, dev/prod E2E |
+| P1-08 | GitHub PR/CI/rapor | PHASE_1_REPORT.md ve PR kontrolleri; açık kriter varsa taslak |
 
-## Sonraki fazlar — başlanmadı
+Kabul kapısı: panel kapanınca sahne devam eder; mock olay panelden sahneye gerçek WS ile ulaşır; typecheck/build/testler geçer. Güncel sonuç Faz 1 raporu ve PR kontrollerindedir.
 
-Faz 1: modüler TS monorepo, React panel, ayrı Three.js sahnesi, Node API/WS, ortak şema, SQLite migration ve mock aktarım. Faz 2–10 yol haritasındaki sıralarıyla bekler. Bu teslimden sonra otomatik olarak Faz 1'e geçilmeyecek.
-
-Teknik borçlar R01–R12 olarak `risks-and-dependencies.md` içinde izlenir. Tarihsel ZIP bulunamadı; teslim edilen kaynaklar değişmeden korunmuş ve yeni arşiv açık provenance ile oluşturulmuştur.
+Sonraki fazlar başlanmadı: Faz 2 rig/beat/senkron kalitesi; Faz 3 ortak tur saati/FIFO/restart restore; Faz 4 tam streak/queue/rule/replay; Faz 5 gerçek TikTok; Faz 6–10 sıralarıyla bekler. Sonraki faz otomatik başlatılmaz.
