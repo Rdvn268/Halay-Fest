@@ -47,6 +47,10 @@ npm run test:e2e
 # Gerçek süreli uzun test; en az 12 dakika bekler, zamanı hızlandırmaz:
 $env:RUN_LONG_SYNC='1'
 npx playwright test --project=phase-2-long
+# Ayrı gerçek GPU profili; aynı anda başka sahne/test çalıştırmayın:
+$env:RUN_LONG_SYNC='0'
+$env:RUN_GPU_PROFILE='1'
+npx playwright test --project=phase-2-hardware
 ```
 
 Uzun test JSON'u ortamı, 10 dk ses ölçümlerini, 106 mock karakter / kare / heap örneklerini ve gerçek 1080×1920 görüntülerini kaydeder. Kontrol paneli kapanma, gerçek codec decoding ve mock gerilemesi kısa E2E testlerinde ayrıca sınanır. 60 FPS, gerçek izleyici kapasitesi, 20 dk duvar süresi, 5 saat dayanıklılık ve profesyonel folklor doğruluğu yalnız bu testlerden çıkarılmaz.

@@ -20,6 +20,15 @@ export default defineConfig({
   },
   projects: [
     {
+      name: "phase-2-hardware",
+      testMatch: "phase2-hardware.spec.ts",
+      use: {
+        baseURL: `http://127.0.0.1:${production ? 4175 : 5174}`,
+        channel: "chromium",
+        launchOptions: { args: [] },
+      },
+    },
+    {
       name: "phase-2-long",
       testMatch: "phase2-long.spec.ts",
       use: { baseURL: `http://127.0.0.1:${production ? 4175 : 5174}` },

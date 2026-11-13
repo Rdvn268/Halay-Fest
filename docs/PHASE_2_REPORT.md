@@ -41,9 +41,9 @@ Node 24.13.1+ / npm 11. `npm ci` üst masaüstü klasöründe değil, package.js
 | npm run check:legacy | Kaynak varlığı kontrolü geçti; ayrıca koruma/hareket/nota testleri geçti |
 | npm audit --audit-level=moderate | 0 bildirilen açık; genel güvenlik garantisi değildir |
 | Tam dev Chromium | **11 geçti / 1 uzun test bilinçli atlandı**, 1,8 dk; retries=0 |
-| Tam production Chromium | Son koşu sürüyor; sonuç final kanıt commit'inde güncellenecek |
+| Tam production Chromium | **11 geçti / 1 uzun test bilinçli atlandı**, 1,7 dk; retries=0 |
 | Son build gerçek süreli sync/profil | Son koşu ve görüntü doğrulaması bekleniyor; aşağıdaki metrikler final kanıtla doldurulacak |
-| GitHub CI | PR #3 kontrollerinde; final commit sonucu ayrıca kaydedilecek |
+| GitHub CI | `185c6e9` için [CI #14](https://github.com/Rdvn268/Halay-Fest/actions/runs/43524942468) **4/4 başarılı**: Windows/Linux tooling ve dev/production Chromium. Final kanıt commit'i ayrıca kontrol edilecek |
 
 48 testin 26'sı eski koruma/altyapı regresyonudur; yeni Faz 2 kabulü olarak sayılmaz. Yeni testler gerçek WAV stream/Range, metadata/listelerin DB kapat/aç sonrası geri gelmesi, sahte/bozuk konteyner, disk hatası, chunk/header kotası, SQLite rollback, eşzamanlı upload, autoplay/repeat ve duplicate-ended davranışını sınar. GLB gerçekten parse edilir; bone quaternion'u iki farklı klipte değişir ve hash/source inventory doğrulanır.
 
@@ -70,7 +70,7 @@ Uzun senaryo: 1080×1920, altı NPC ile en az **600 gerçek saniye** dosya müzi
 | Panel kapanınca oyun + ses | Gerçek iki sayfa close sonrası ilerleme/otomatik geçiş geçti |
 | Mock TikTok korunması | Geçti; gerçek TikTok kurulmuş gibi gösterilmez |
 | Yeni görselin ekran görüntüleri | Son build görsel incelemesi bekleniyor |
-| Unit/integration/Playwright | Unit/integration 48, dev 11 geçti; production/CI final sonucu bekleniyor |
+| Unit/integration/Playwright | Unit/integration 48, dev 11 ve production 11 geçti; Windows/Linux/Chromium CI 4/4 yeşil; final kanıt commit'i bekleniyor |
 | Profesyonel karakter/kostüm/koreografi | **Kısmi:** özgün rig/keyframe ve tek kostümün altı rengi var. Artist üretimi çeşitli giysi kesimleri, profesyonel folk mocap ve folklor uzmanı kabulü yok |
 | İzinli gerçek müzikte işitsel kabul | **Açık:** yayın izni belgeli gerçek Halay/Horon kaydı sağlanmadı. Lisansı belirsiz kayıt indirilmedi; test sinyali gerçek müzikmiş gibi sunulmadı |
 | 100 oyuncu/60 FPS | 106 mock rig profili alınacak; hedef yayın donanımında 60 FPS kabulü açık |
