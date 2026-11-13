@@ -1,6 +1,22 @@
 {
   "extends": "./tsconfig.json",
-  "compilerOptions": { "declaration": true, "sourceMap": true },
-  "include": ["scripts/**/*.ts"],
-  "exclude": ["test", "vitest.config.ts"]
+  "compilerOptions": {
+    "noEmit": false,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "declaration": true,
+    "sourceMap": true,
+    "customConditions": []
+  },
+  "include": [
+    "scripts/audit-cli.ts",
+    "scripts/legacy-audit.ts",
+    "scripts/legacy-server.ts",
+    "scripts/serve-legacy.ts",
+    "scripts/dev.ts"
+  ],
+  "exclude": [
+    "test",
+    "node_modules"
+  ]
 }

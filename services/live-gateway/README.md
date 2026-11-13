@@ -1,3 +1,3 @@
 # services/live-gateway
 
-Faz 1: yerel Node API/WebSocket. Ger?ek TikTok adapt?r? Faz 5; hen?z servis yok.
+Node HTTP/WebSocket, MockSourceAdapter ve SQLite migration. Gerçek TikTok adaptörü uygulanmadı. Çalıştırma kök README içinde.

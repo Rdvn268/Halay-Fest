@@ -1,0 +1,11 @@
+{
+  "name": "@halay/live-gateway",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@halay/contracts": "*",
+    "@halay/game-core": "*",
+    "ws": "8.23.0"
+  }
+}

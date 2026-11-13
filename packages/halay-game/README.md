@@ -1,3 +1,3 @@
 # packages/halay-game
 
-Faz 2: dans/meydan/kamera; hen?z paket yok. ?al??an eski kod legacy/v0.2 alt?nda korunur.
+v0.2 kökenli typed Three.js ortam/dans/kamera/efekt ve Web Audio modülleri. Legacy değişmez. Görsel kalite/beat kabulü Faz 2'de yapılacaktır.

@@ -1,3 +1,3 @@
 # apps/broadcaster
 
-Faz 1: Three.js yay?n sahnesi. Bu klas?r yaln?zca mimari s?n?r i?in ayr?ld?; hen?z uygulama yok.
+Bağımsız Vite/TypeScript Three.js sahnesi. Çalıştırma ve testler kök README içinde. Halay/horon, native Web Audio ve açık mock/bağlantı durumu bulunur.
