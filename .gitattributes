@@ -7,3 +7,5 @@
 *.mp3 binary
 *.wav binary
 *.glb binary
+# Preserve upstream license bytes, including their original line endings/whitespace.
+assets/licenses/*.txt -text -whitespace
