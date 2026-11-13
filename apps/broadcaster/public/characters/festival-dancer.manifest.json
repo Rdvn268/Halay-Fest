@@ -1,0 +1,24 @@
+{
+  "path": "festival-dancer.glb",
+  "sha256": "3e6fdfc7b6fdcce9defdec035c6df2684e7234c76fcff39c51b25dd7ba66d4a6",
+  "source": "scripts/create-character.ts",
+  "generatorSha256": "9e5f59789ccab33c03c3ee8a2a47c0e73fd1e6099369fdf17d364b5af4226bc6",
+  "license": "CC0-1.0",
+  "thirdPartyModels": [],
+  "bones": 17,
+  "clips": [
+    "halay_ThreeStep",
+    "halay_HeelTap",
+    "halay_CrossStep",
+    "horon_QuickPulse",
+    "horon_KneeLift",
+    "horon_ShoulderShake",
+    "govend_SideStep",
+    "govend_HeelLift",
+    "govend_CrossStep",
+    "zeybek_OpenArms",
+    "zeybek_KneeBend",
+    "zeybek_TurnStep"
+  ],
+  "bytes": 1761948
+}

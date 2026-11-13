@@ -1,0 +1,146 @@
+.music-manager {
+  margin-top: 24px;
+}
+.music-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+.music-heading h2 {
+  margin-bottom: 8px;
+}
+.music-heading > span {
+  color: #9bd8c8;
+  font-size: 12px;
+}
+.music-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 24px;
+}
+.music-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 16px;
+  align-items: center;
+}
+.music-fields label {
+  margin: 9px 0;
+}
+.transport {
+  padding: 20px;
+  background: #172735;
+  border: 1px solid #385a64;
+  border-radius: 12px;
+}
+.transport > strong {
+  font-size: 22px;
+  color: #ffe1a2;
+}
+.playlist {
+  height: auto;
+  max-height: 360px;
+  padding-left: 20px;
+}
+.playlist li {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.playlist li > button:first-child {
+  flex: 1;
+  text-align: left;
+}
+.playlist button {
+  padding: 8px;
+}
+.selected {
+  border-color: #f8ba54 !important;
+  color: #f8ba54 !important;
+}
+.library-list {
+  padding: 0;
+  list-style: none;
+  max-height: 280px;
+  overflow: auto;
+}
+.library-list li {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.library-list li > button:first-child {
+  flex: 1;
+  min-width: 140px;
+  text-align: left;
+}
+.library-list small {
+  color: #9aafbd;
+  width: 100%;
+}
+.library-list button {
+  font-size: 11px;
+  padding: 8px;
+}
+.track-editor {
+  padding: 16px;
+  background: #0d1722;
+  border: 1px solid #263647;
+  border-radius: 12px;
+}
+.track-editor h3 {
+  margin-top: 0;
+}
+.diagnostics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  font-size: 12px;
+}
+.diagnostics dt {
+  color: #9eafbc;
+}
+.diagnostics dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.upload {
+  background: #182b36;
+  border: 1px dashed #659886;
+  padding: 18px;
+  border-radius: 12px;
+}
+.upload input {
+  border: 0;
+  background: transparent;
+  padding: 4px;
+}
+.track-editor p {
+  font-size: 12px;
+  line-height: 1.7;
+}
+input[type="file"]::file-selector-button {
+  background: #f8ba54;
+  color: #282014;
+  border: 0;
+  border-radius: 6px;
+  padding: 9px;
+  cursor: pointer;
+  margin-right: 12px;
+}
+@media (max-width: 850px) {
+  .music-columns {
+    grid-template-columns: 1fr;
+  }
+  .music-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .music-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+}

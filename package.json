@@ -10,6 +10,7 @@
   },
   "packageManager": "npm@11.8.0",
   "scripts": {
+    "assets:character": "node --import=tsx scripts/create-character.ts",
     "dev": "node --import=tsx scripts/dev.ts",
     "lint": "eslint scripts test apps services packages --max-warnings 0",
     "typecheck": "tsc --noEmit",

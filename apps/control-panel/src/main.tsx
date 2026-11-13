@@ -11,6 +11,7 @@ import type {
 import { connectGateway, postJson } from "@halay/runtime-client";
 import type { ConnectionStatus } from "@halay/runtime-client";
 import "./style.css";
+import { MusicManager } from "./MusicManager.js";
 
 const gifts: { id: GiftKind; label: string }[] = [
   { id: "rose", label: "🌹 Gül" },
@@ -360,6 +361,15 @@ function App() {
           </ol>
         </section>
       </div>
+      <MusicManager
+        volume={snapshot?.settings.musicVolume ?? 45}
+        onVolume={(musicVolume) =>
+          postJson("/api/settings", {
+            ...(snapshot?.settings ?? defaultSettings),
+            musicVolume,
+          })
+        }
+      />
     </main>
   );
 }

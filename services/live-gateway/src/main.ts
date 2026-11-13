@@ -9,6 +9,8 @@ const path = resolve(process.env["DATABASE_PATH"] ?? "data/halay-fest.sqlite");
 mkdirSync(dirname(path), { recursive: true });
 const gateway = createGateway({
   databasePath: path,
+  // Keep test/dev libraries isolated even when their databases share a parent.
+  musicDirectory: `${path}.music`,
   allowedOrigins: [
     "http://127.0.0.1:5173",
     "http://127.0.0.1:5174",

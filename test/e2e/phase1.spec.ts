@@ -1,8 +1,15 @@
 import { expect, test } from "@playwright/test";
 import { defaultSettings } from "@halay/contracts";
+import type { MusicLibrary, MusicTrack } from "@halay/contracts";
+import { recordedBeatWav } from "../helpers/audio.js";
 
 const sceneUrl = `http://127.0.0.1:${process.env["TEST_PRODUCTION"] === "1" ? 4174 : 5173}`;
 test.beforeEach(async ({ page, request }) => {
+  const library = (await (
+    await request.get("/api/music")
+  ).json()) as MusicLibrary;
+  for (const track of library.tracks)
+    await request.post("/api/music/delete", { data: { id: track.id } });
   await request.post("/api/control", { data: { action: "clear_players" } });
   await request.post("/api/control", { data: { action: "resume" } });
   await request.post("/api/settings", { data: defaultSettings });
@@ -68,6 +75,7 @@ test("React panel routes mock joins/gifts to independent Three.js; closing panel
 test("saved music/volume settings reach the scene, native audio and panel controls work", async ({
   page,
   context,
+  request,
 }, testInfo) => {
   const scene = await context.newPage();
   await scene.addInitScript(() => {
@@ -92,9 +100,28 @@ test("saved music/volume settings reach the scene, native audio and panel contro
   await expect(page.getByRole("status")).toHaveText(
     "Ayarlar SQLite’a kaydedildi.",
   );
-  await expect(scene.locator("#dance")).toHaveText("Horon · 7/8");
+  await expect(scene.locator("#dance")).toHaveText("Horon · Sessiz önizleme");
+  const response = await request.post(
+    "/api/music/upload?filename=phase1-audio.wav",
+    { headers: { "Content-Type": "audio/wav" }, data: recordedBeatWav(60) },
+  );
+  expect(response.status()).toBe(201);
+  const track = (await response.json()) as MusicTrack;
+  await request.post(`/api/music/tracks/${track.id}`, {
+    data: {
+      dance: "horon",
+      beatsPerBar: 7,
+      beatUnit: 8,
+      bpm: 120,
+      bpmSource: "manual",
+      firstBeatSec: 0.15,
+    },
+  });
+  await request.post("/api/music/transport", {
+    data: { action: "play", trackId: track.id },
+  });
   await scene
-    .getByRole("button", { name: "Müziği başlat", exact: true })
+    .getByRole("button", { name: "Ses motorunu aç", exact: true })
     .click();
   await expect(
     scene.getByRole("button", { name: "Müziği durdur", exact: true }),
@@ -139,22 +166,17 @@ test("saved music/volume settings reach the scene, native audio and panel contro
   await scene
     .getByRole("button", { name: "Müziği durdur", exact: true })
     .click();
-  await expect
-    .poll(() =>
-      scene.evaluate(
-        () =>
-          (window as unknown as { __phase1Contexts: AudioContext[] })
-            .__phase1Contexts[0]?.state,
-      ),
-    )
-    .toBe("suspended");
+  await expect(
+    scene.getByRole("button", { name: "Müziği başlat", exact: true }),
+  ).toBeVisible();
+  await request.post("/api/music/delete", { data: { id: track.id } });
   await page
     .getByRole("button", { name: "Varsayılanları yükle", exact: true })
     .click();
   await page
     .getByRole("button", { name: "Ayarları kaydet", exact: true })
     .click();
-  await expect(scene.locator("#dance")).toHaveText("Halay · 2/4");
+  await expect(scene.locator("#dance")).toHaveText("Halay · Sessiz önizleme");
 });
 
 test("a refused settings update is visible and does not show false saved state", async ({

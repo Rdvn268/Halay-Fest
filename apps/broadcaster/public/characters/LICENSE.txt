@@ -1,0 +1,14 @@
+HALAY FEST original character asset
+
+festival-dancer.glb and its mesh, skin weights, costume colors and twelve
+skeletal animation clips were authored for this project from
+scripts/create-character.ts. No external model, texture or motion capture was
+downloaded or incorporated. Geometry is exported with Three.js (MIT; notice in
+../third-party-notices.txt).
+
+The original character asset and animation content is dedicated to the public
+domain under CC0 1.0 Universal:
+https://creativecommons.org/publicdomain/zero/1.0/legalcode
+
+No broader license is assigned to the repository, legacy prototype or uploaded
+music. Uploaded music remains the responsibility/property of its rights holder.
