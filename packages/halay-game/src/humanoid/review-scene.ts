@@ -68,7 +68,11 @@ export class HumanoidReviewScene {
   private disposed = false;
   private externalStudies: ContactStudy[][] = [];
   private countOverride: number | undefined;
+  private cameraOccluders: { object: T.Object3D; bounds: T.Box3 }[] = [];
   private stopRecording: (() => void) | undefined;
+  private recordingCanvas: HTMLCanvasElement | undefined;
+  private recordingContext: CanvasRenderingContext2D | undefined;
+  private lastCaptureTime = 0;
   constructor(
     private host: HTMLElement,
     private onFrame: (m: ReviewMetrics) => void,
@@ -93,6 +97,14 @@ export class HumanoidReviewScene {
     this.scene.background = new T.Color("#455975");
     this.scene.fog = new T.Fog("#62718a", 30, 85);
     buildWeddingCourtyard(this.scene);
+    this.scene.updateMatrixWorld(true);
+    this.scene.traverse((object) => {
+      if (object.userData["cameraOccluder"])
+        this.cameraOccluders.push({
+          object,
+          bounds: new T.Box3().setFromObject(object),
+        });
+    });
     this.camera.position.set(0, 3.1, 11);
     this.camera.lookAt(0, 1, 0);
     this.observer = new ResizeObserver(() => this.resize());
@@ -118,20 +130,37 @@ export class HumanoidReviewScene {
     if (this.stopRecording) throw new Error("Kayıt zaten sürüyor.");
     if (!this.music.playing)
       throw new Error("Sesli kayıt için önce müzik çalmalı.");
+    if (!this.library)
+      throw new Error("Modeller yüklenmeden kayıt başlatılamaz.");
     if (!Number.isFinite(seconds) || seconds < 4 || seconds > 60)
       throw new Error("Kayıt süresi 4–60 saniye olmalı.");
+    const mimeType = "video/webm;codecs=vp8,opus";
+    if (
+      typeof MediaRecorder === "undefined" ||
+      !MediaRecorder.isTypeSupported(mimeType)
+    )
+      throw new Error("Tarayıcı VP8/Opus WebM kaydını desteklemiyor.");
+    // Capture actual render frames plus the truthful HUD, not a silent/raw WebGL-only crop.
+    // Wait for the portrait framing CSS, then render at the actual 1080x1920 output resolution.
+    this.recordingCanvas = document.createElement("canvas");
+    this.recordingCanvas.width = 1080;
+    this.recordingCanvas.height = 1920;
+    this.recordingContext =
+      this.recordingCanvas.getContext("2d", { alpha: false }) ?? undefined;
+    if (!this.recordingContext) {
+      this.recordingCanvas = undefined;
+      throw new Error("Kayıt canvas'ı açılamadı.");
+    }
+    await new Promise<void>((resolve) =>
+      requestAnimationFrame(() => resolve()),
+    );
+    this.resize();
     const audio = this.music.recordingAudio();
-    const video = this.renderer.domElement.captureStream(30);
+    const video = this.recordingCanvas.captureStream(30);
     const stream = new MediaStream([
       ...video.getVideoTracks(),
       ...audio.stream.getAudioTracks(),
     ]);
-    const mimeType = "video/webm;codecs=vp8,opus";
-    if (!MediaRecorder.isTypeSupported(mimeType)) {
-      audio.dispose();
-      for (const t of video.getTracks()) t.stop();
-      throw new Error("Tarayıcı VP8/Opus WebM kaydını desteklemiyor.");
-    }
     try {
       return await new Promise<Blob>((resolve, reject) => {
         const recorder = new MediaRecorder(stream, {
@@ -168,6 +197,9 @@ export class HumanoidReviewScene {
       this.stopRecording = undefined;
       for (const t of video.getTracks()) t.stop();
       audio.dispose();
+      this.recordingCanvas = undefined;
+      this.recordingContext = undefined;
+      this.resize();
     }
   }
   /** Manual stress switch is review-only; never changes capacity or creates fake users in the gateway. */
@@ -261,8 +293,17 @@ export class HumanoidReviewScene {
   private resize() {
     const w = this.host.clientWidth,
       h = Math.max(1, this.host.clientHeight);
-    this.renderer.setSize(w, h, false);
-    this.camera.aspect = w / h;
+    this.renderer.setPixelRatio(
+      this.recordingCanvas
+        ? 1
+        : Math.min(devicePixelRatio || 1, this.actors.length > 12 ? 1 : 1.25),
+    );
+    this.renderer.setSize(
+      this.recordingCanvas ? 1080 : w,
+      this.recordingCanvas ? 1920 : h,
+      false,
+    );
+    this.camera.aspect = this.recordingCanvas ? 9 / 16 : w / h;
     this.camera.updateProjectionMatrix();
   }
   async addMotion(file: File, raw: unknown) {
@@ -534,7 +575,65 @@ export class HumanoidReviewScene {
       Math.min(1, dt * 3),
     );
     this.camera.lookAt(seq.travel.x, 1.05, seq.travel.z);
+    // Fixed inspection views must expose the actual feet/hands, including from the side.
+    // Hide whole architectural groups rather than changing shared materials or editing screenshots.
+    for (const occluder of this.cameraOccluders) {
+      occluder.object.visible = true;
+      for (const actor of this.actors.slice(0, 6)) {
+        for (const height of [0.3, 1.65]) {
+          const target = actor.group.position
+            .clone()
+            .add(new T.Vector3(0, height, 0));
+          const delta = target.sub(this.camera.position),
+            distance = delta.length();
+          const hit = new T.Ray(
+            this.camera.position,
+            delta.normalize(),
+          ).intersectBox(occluder.bounds, new T.Vector3());
+          if (hit && hit.distanceTo(this.camera.position) < distance) {
+            occluder.object.visible = false;
+            break;
+          }
+        }
+        if (!occluder.object.visible) break;
+      }
+    }
     this.renderer.render(this.scene, this.camera);
+    if (
+      this.recordingCanvas &&
+      this.recordingContext &&
+      now - this.lastCaptureTime >= 1000 / 30
+    ) {
+      this.lastCaptureTime = now;
+      const ctx = this.recordingContext;
+      ctx.drawImage(this.renderer.domElement, 0, 0, 1080, 1920);
+      ctx.fillStyle = "rgba(20,29,39,.92)";
+      ctx.fillRect(22, 22, 1036, 150);
+      ctx.fillStyle = "#f1d1a0";
+      ctx.font = "600 26px Segoe UI, sans-serif";
+      ctx.fillText("HALAY FEST · TEKNİK İNCELEME", 42, 63);
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "24px Segoe UI, sans-serif";
+      ctx.fillText(active?.label ?? "Model bekleniyor", 42, 103, 990);
+      ctx.fillStyle = "#f1d1a0";
+      ctx.font = "21px Segoe UI, sans-serif";
+      ctx.fillText(
+        `Ses saati · vuruş ${f.beat.toFixed(2)} · Yöresel doğruluk / kullanıcı kabulü AÇIK`,
+        42,
+        143,
+        990,
+      );
+      ctx.fillStyle = "rgba(20,29,39,.92)";
+      ctx.fillRect(22, 1840, 1036, 58);
+      ctx.fillStyle = "#f1d1a0";
+      ctx.font = "22px Segoe UI, sans-serif";
+      ctx.fillText(
+        "Özgün temas çalışması · Onaylı gerçek Halay performansı değildir.",
+        42,
+        1877,
+        990,
+      );
+    }
     this.renderer.domElement.dataset["assetReady"] = String(
       Boolean(this.library),
     );

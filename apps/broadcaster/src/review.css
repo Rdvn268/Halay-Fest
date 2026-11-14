@@ -191,12 +191,15 @@ body.recording #notice {
 }
 body.recording .workspace {
   display: block;
+  background: #111820;
+  min-height: 100vh;
 }
 body.recording #review-stage {
   max-height: none;
   min-height: 0;
-  width: 100vw;
-  height: 100vh;
+  width: min(100vw, calc(100vh * 9 / 16));
+  height: min(100vh, calc(100vw * 16 / 9));
+  margin: 0 auto;
   border: 0;
   border-radius: 0;
 }

@@ -135,6 +135,21 @@ test("records a real 1080x1920 audible contact-study cycle and measures six/106 
   expect(video.includes(Buffer.from("V_VP8"))).toBe(true);
   const decoded = await page.evaluate(async (base64) => {
     const bytes = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
+    const url = URL.createObjectURL(new Blob([bytes], { type: "video/webm" }));
+    const view = document.createElement("video");
+    view.preload = "metadata";
+    const dimensions = await new Promise<{
+      videoWidth: number;
+      videoHeight: number;
+    }>((resolve, reject) => {
+      view.onloadedmetadata = () =>
+        resolve({ videoWidth: view.videoWidth, videoHeight: view.videoHeight });
+      view.onerror = () => reject(new Error("Recorded video does not decode"));
+      view.src = url;
+    });
+    view.removeAttribute("src");
+    view.load();
+    URL.revokeObjectURL(url);
     const ctx = new AudioContext();
     try {
       const buffer = await ctx.decodeAudioData(bytes.buffer),
@@ -143,6 +158,7 @@ test("records a real 1080x1920 audible contact-study cycle and measures six/106 
       for (let i = 0; i < channel.length; i += 16)
         sum += channel[i]! * channel[i]!;
       return {
+        ...dimensions,
         audioDuration: buffer.duration,
         sampleRate: buffer.sampleRate,
         rms: Math.sqrt(sum / Math.ceil(channel.length / 16)),
@@ -152,6 +168,8 @@ test("records a real 1080x1920 audible contact-study cycle and measures six/106 
     }
   }, video.toString("base64"));
   expect(decoded.audioDuration).toBeGreaterThan(15);
+  expect(decoded.videoWidth).toBe(1080);
+  expect(decoded.videoHeight).toBe(1920);
   expect(decoded.rms).toBeGreaterThan(0.0001);
   const sources: Record<string, string> = {};
   for (const name of [

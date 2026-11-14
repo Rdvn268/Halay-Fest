@@ -103,6 +103,7 @@ export function buildWeddingCourtyard(scene: T.Scene) {
   scene.add(fill);
   function house(x: number, z: number, width: number, rotation: number) {
     const g = new T.Group();
+    g.userData["cameraOccluder"] = true;
     g.position.set(x, 0, z);
     g.rotation.y = rotation;
     scene.add(g);
