@@ -19,6 +19,7 @@ export default defineConfig({
       input: {
         main: resolve(import.meta.dirname, "index.html"),
         review: resolve(import.meta.dirname, "review.html"),
+        cinematic: resolve(import.meta.dirname, "cinematic.html"),
       },
       output: {
         codeSplitting: {

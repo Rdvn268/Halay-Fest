@@ -28,7 +28,7 @@ Anadolu taş/sıva/ahşap mimarisi için tek yöre referansı seçilir; rastgele
 
 Sıcak akşam ana ışığı, gökyüzü dolgusu, pratik ampuller; gölgede yüz ve kumaş okunmalı. Başlangıçta tek gölgeli yönlü ışık, bake edilmiş çevre/ışık probe yaklaşımı; ışık sayısı ölçüme göre artar. Aşırı bloom/alan derinliği ile ayak ve eller gizlenmez. HDRI/scan seçimi ayrıca lisans kaydına girer.
 
-45 saniyelik çekim planı: 0–9 önden tam grup, 9–18 yandan tam ayaklar, 18–27 başçeken/mendil (zincir bağlamı korunur), 27–36 çapraz geniş, 36–45 başlangıç kadrajına dönüş. Kamera yalnızdır; figür değişimini kamera saniyesi yönetmez. Tam ölçü/figür döngüsü ve ses dikişi seçilen gerçek kayıtla hazırlanır. 45 saniye her BPM'de tam ölçü değildir; keyfi tempo zorlaması yapılmaz. Kamera ilk/son konumu ve hızı eşleşse bile ses/beden dikişi kabul edilmiş olmaz.
+45 saniyelik kamera anahtar planı: 0 sn önden tam grup, 9 sn yandan tam ayaklar, 18 sn başçeken/mendil, 27 sn çapraz geniş, 36 sn başlangıç kadrajına dönüş ve 45 sn döngü. Anahtarlar arasında yumuşak geçiş, son 9 saniyede ön kadrajda bekleme. Kamera yalnızdır; figür değişimini kamera saniyesi yönetmez. Tam ölçü/figür döngüsü ve ses dikişi seçilen gerçek kayıtla hazırlanır. 45 saniye her BPM'de tam ölçü değildir; keyfi tempo zorlaması yapılmaz. Kamera ilk/son konumu ve hızı eşleşse bile ses/beden dikişi kabul edilmiş olmaz.
 
 9:16 merkezde altı beden ve ayaklar; üst/alt platform güvenli alanları gerçek yayın yerleşimiyle incelenir. Öneri: üst 180 px, alt 300 px kontrol alanı; yüz/temasları kapatan HUD yok. Mor/beyaz panel referansları yönetim arayüzüne aittir; sinematik dünyaya çizgi film estetiği dayatmaz.
 

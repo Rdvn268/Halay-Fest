@@ -27,7 +27,7 @@ Quaternius arşiv bütünlüğü: base `fdbf1804c90dfc1ea03e992bff7da2dfd1a79318
 
 ## İncelenen adaylar — seçilmedi
 
-- [Blender resmi demo dosyaları](https://www.blender.org/download/demo-files/): Human Base Meshes CC0 paketi modelleme başlangıcı olabilir. Hazır altı giyimli, rigged gerçekçi karakter seti değildir. Blender Studio'nun farklı eğitim dosyalarının lisansları bu paketin lisansıyla karıştırılmaz.
+- [Blender resmi demo dosyaları](https://www.blender.org/download/demo-files/): resmi arama sonucunda Human Base Meshes CC0 paketi aday olarak bulundu; bu oturumda sayfanın doğrudan açılması 403 verdi. Paket/lisans dosyası indirilip doğrulanmadı. Modelleme başlangıcı olabilir; hazır altı giyimli, rigged gerçekçi karakter seti değildir. Blender Studio'nun farklı eğitim dosyalarının lisansları bu paketin lisansıyla karıştırılmaz.
 - [Poly Haven lisansı](https://polyhaven.com/license): varlıkları CC0 olarak sunar; çevre materyali/HDRI aday kaynağıdır. Bu görevde belirli varlık indirilmedi/eklenmedi; web/API koşulları ayrı değerlendirilir.
 - Genel dans kütüphanesi, YouTube öğreticisi veya Second Life içi satış ilanı, indirilebilir/ticari yeniden dağıtılabilir Halay mocap izni yerine sayılmaz. Ücretli içerik alınmadı.
 
