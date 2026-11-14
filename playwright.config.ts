@@ -23,6 +23,25 @@ export default defineConfig({
   },
   projects: [
     {
+      name: "humanoid-hardware",
+      testMatch: "humanoid-hardware.spec.ts",
+      use: {
+        baseURL: `http://127.0.0.1:${production ? ports.productionScene : ports.devScene}`,
+        channel: "chromium",
+        launchOptions: { args: [] },
+        viewport: { width: 1080, height: 1920 },
+      },
+    },
+    {
+      name: "humanoid-review",
+      testMatch: "humanoid-review.spec.ts",
+      use: {
+        baseURL: `http://127.0.0.1:${production ? ports.productionScene : ports.devScene}`,
+        viewport: { width: 1080, height: 1920 },
+        video: { mode: "on", size: { width: 1080, height: 1920 } },
+      },
+    },
+    {
       name: "panel-ui",
       testMatch: "panel-ui.spec.ts",
       use: {
