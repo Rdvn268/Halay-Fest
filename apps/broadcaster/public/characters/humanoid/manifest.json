@@ -1,0 +1,62 @@
+{
+  "author": "Quaternius",
+  "pack": "Universal Base Characters \u2014 Standard",
+  "source": "https://quaternius.itch.io/universal-base-characters",
+  "license": "CC0-1.0",
+  "licenseEvidence": "assets/licenses/quaternius-base-characters-CC0.txt",
+  "retrieved": "2026-11-14",
+  "archiveSha256": "fdbf1804c90dfc1ea03e992bff7da2dfd1a79318e13270a660180f9308455f40",
+  "commercialUse": true,
+  "redistribution": true,
+  "changes": "Embedded original buffers/images as GLB; repaired absent duplicate normal-map filenames. Textures resized to maximum 1024 pixels; topology and skin unchanged.",
+  "productionApproved": false,
+  "regionalCostumes": false,
+  "assets": [
+    {
+      "path": "male.glb",
+      "sourceEntry": "Universal Base Characters[Standard]/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf",
+      "sha256": "cfc43a74be0769411895756f6af9bc7a7e9952ac856d2ff3020b0fd1cfbede2e",
+      "bytes": 7333316,
+      "textureMaxSize": 1024,
+      "uriRepairs": [
+        {
+          "missing": "T_Hair_1_Normal_png.png",
+          "resolved": "T_Hair_1_Normal.png"
+        },
+        {
+          "missing": "T_Eye_Normal_png.png",
+          "resolved": "T_Eye_Normal.png"
+        }
+      ]
+    },
+    {
+      "path": "female.glb",
+      "sourceEntry": "Universal Base Characters[Standard]/Base Characters/Godot - UE/Superhero_Female_FullBody.gltf",
+      "sha256": "b236d11b9287afd26408803f3a89e304c4783630e4f8415c62f24fb13369ef23",
+      "bytes": 7634256,
+      "textureMaxSize": 1024,
+      "uriRepairs": [
+        {
+          "missing": "T_Eye_Normal_png.png",
+          "resolved": "T_Eye_Normal.png"
+        }
+      ]
+    },
+    {
+      "path": "hair-parted.glb",
+      "sourceEntry": "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_SimpleParted.gltf",
+      "sha256": "1d849aaaaa002a858be010a3130192dbb7a9ca8ec7702eb6fe3ed6ae897bf30c",
+      "bytes": 2897928,
+      "textureMaxSize": 1024,
+      "uriRepairs": []
+    },
+    {
+      "path": "hair-long.glb",
+      "sourceEntry": "Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Long.gltf",
+      "sha256": "325ca1dfd113e619ae0dd3322e13a654eed3170c5f9476fc03533ae3e2c8f254",
+      "bytes": 3401428,
+      "textureMaxSize": 1024,
+      "uriRepairs": []
+    }
+  ]
+}

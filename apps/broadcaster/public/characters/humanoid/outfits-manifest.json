@@ -1,0 +1,32 @@
+{
+  "author": "Quaternius",
+  "pack": "Modular Character Outfits - Fantasy \u2014 Standard",
+  "source": "https://quaternius.itch.io/modular-character-outfits-fantasy",
+  "license": "CC0-1.0",
+  "licenseEvidence": "assets/licenses/quaternius-outfits-CC0.txt",
+  "retrieved": "2026-11-14",
+  "archiveSha256": "c3468b18871cc8c8f05ab14df7712baf22cb9f389cbd870babf130e595187f70",
+  "commercialUse": true,
+  "redistribution": true,
+  "regionalCostumes": false,
+  "productionApproved": false,
+  "changes": "Embedded buffers/images as GLB; textures resized to maximum 1024 pixels. Generic peasant outfits, NOT certified Anatolian costume.",
+  "assets": [
+    {
+      "path": "outfit-male.glb",
+      "sourceEntry": "Modular Character Outfits - Fantasy[Standard]/Exports/glTF (Godot-Unreal)/Outfits/Male_Peasant.gltf",
+      "sha256": "c50cb902bad85888267c97162a0358ed784f81d5a6f1cdc0484c8af5afb3b30c",
+      "bytes": 8137012,
+      "textureMaxSize": 1024,
+      "uriRepairs": []
+    },
+    {
+      "path": "outfit-female.glb",
+      "sourceEntry": "Modular Character Outfits - Fantasy[Standard]/Exports/glTF (Godot-Unreal)/Outfits/Female_Peasant.gltf",
+      "sha256": "9a2061c18b7521a314f5f26766fab298b2fac2208c27c47da40843ceafd1d2de",
+      "bytes": 4629040,
+      "textureMaxSize": 1024,
+      "uriRepairs": []
+    }
+  ]
+}

@@ -14,6 +14,16 @@ document.getElementById("root")!.innerHTML = `
   <footer><span id="connection" role="status">Yerel servise bağlanıyor</span><button id="music">Müziği başlat</button><button id="fullscreen">Tam ekran</button></footer>
   <p id="error" role="alert"></p><p class="hint">Müziği bu pencerede bir kez başlatın. Panel kapansa da bu sahne çalışır.</p></main>`;
 const el = (id: string) => document.getElementById(id)!;
+const reviewLink = document.createElement("p");
+reviewLink.className = "hint";
+reviewLink.append(
+  "Eski görsel prototip · Profesyonel görsel/koreografi kabulü yok. ",
+);
+const link = document.createElement("a");
+link.href = "/review.html";
+link.textContent = "Yeni humanoid inceleme sahnesi →";
+reviewLink.append(link);
+document.querySelector("main")!.prepend(reviewLink);
 let latestMetrics: SceneMetrics | undefined;
 const danceNames = {
   halay: "Halay",
