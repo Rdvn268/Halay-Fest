@@ -9,8 +9,9 @@ import type {
 import { recordedBeatWav } from "../helpers/audio.js";
 import { resolve } from "node:path";
 import { readFile } from "node:fs/promises";
+import { openPanel } from "../helpers/panel.js";
 
-const sceneUrl = `http://127.0.0.1:${process.env["TEST_PRODUCTION"] === "1" ? 4174 : 5173}`;
+const sceneUrl = `http://127.0.0.1:${(process.env["TEST_PRODUCTION"] === "1" ? 4174 : 5173) + Number(process.env["HALAY_PORT_OFFSET"] ?? 0)}`;
 async function library(request: APIRequestContext) {
   return (await (await request.get("/api/music")).json()) as MusicLibrary;
 }
@@ -41,6 +42,7 @@ test.beforeEach(async ({ request, page }) => {
   });
   await page.goto("/");
   await expect(page.getByTestId("connection")).toHaveText("Bağlı");
+  await openPanel(page, "Müzik");
 });
 
 test("uploads and really decodes WAV/MP3/OGG, edits playlists, persists metadata and shows storage failures", async ({

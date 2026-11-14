@@ -1,8 +1,10 @@
 import { spawn } from "node:child_process";
 import { resolve } from "node:path";
 import { createServer, preview } from "vite";
+import { localPorts } from "./local-ports.js";
 
 const production = process.argv.includes("--production");
+const ports = localPorts();
 const gateway = spawn(
   process.execPath,
   production
@@ -44,8 +46,8 @@ gateway.on("error", (error) => {
 try {
   await ready;
   for (const [name, port] of [
-    ["broadcaster", production ? 4174 : 5173],
-    ["control-panel", production ? 4175 : 5174],
+    ["broadcaster", production ? ports.productionScene : ports.devScene],
+    ["control-panel", production ? ports.productionPanel : ports.devPanel],
   ] as const) {
     if (production) {
       const server = await preview({

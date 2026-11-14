@@ -1,8 +1,10 @@
 import { mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { createGateway } from "./server.js";
+import { localPorts } from "../../../scripts/local-ports.js";
 
-const port = Number(process.env["GATEWAY_PORT"] ?? 8787);
+const ports = localPorts();
+const port = Number(process.env["GATEWAY_PORT"] ?? ports.gateway);
 if (!Number.isInteger(port) || port < 1024 || port > 65535)
   throw new Error("Invalid GATEWAY_PORT");
 const path = resolve(process.env["DATABASE_PATH"] ?? "data/halay-fest.sqlite");
@@ -12,11 +14,11 @@ const gateway = createGateway({
   // Keep test/dev libraries isolated even when their databases share a parent.
   musicDirectory: `${path}.music`,
   allowedOrigins: [
-    "http://127.0.0.1:5173",
-    "http://127.0.0.1:5174",
-    "http://127.0.0.1:4174",
-    "http://127.0.0.1:4175",
-  ],
+    ports.devScene,
+    ports.devPanel,
+    ports.productionScene,
+    ports.productionPanel,
+  ].map((port) => `http://127.0.0.1:${port}`),
 });
 gateway.server.on("error", (error) => {
   console.error(error.message);

@@ -44,7 +44,7 @@ test("measures ten-minute sync and profiles six and 106 rigs on the actual GPU a
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto(
-    `http://127.0.0.1:${process.env["TEST_PRODUCTION"] === "1" ? 4174 : 5173}/?broadcast=1`,
+    `http://127.0.0.1:${(process.env["TEST_PRODUCTION"] === "1" ? 4174 : 5173) + Number(process.env["HALAY_PORT_OFFSET"] ?? 0)}/?broadcast=1`,
   );
   await expect(page.locator("canvas")).toHaveAttribute("data-rigs", "6");
   const renderer = await page.locator("canvas").evaluate((canvas) => {

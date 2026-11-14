@@ -42,7 +42,7 @@ test("real ten-minute audio sync followed by 100-player 1080x1920 profiling", as
   });
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  const origin = `http://127.0.0.1:${process.env["TEST_PRODUCTION"] === "1" ? 4174 : 5173}`;
+  const origin = `http://127.0.0.1:${(process.env["TEST_PRODUCTION"] === "1" ? 4174 : 5173) + Number(process.env["HALAY_PORT_OFFSET"] ?? 0)}`;
   await page.goto(`${origin}/?broadcast=1`);
   await expect(page.locator("canvas")).toHaveAttribute("data-rigs", "6");
   await page

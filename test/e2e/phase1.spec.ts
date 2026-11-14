@@ -2,8 +2,9 @@ import { expect, test } from "@playwright/test";
 import { defaultSettings } from "@halay/contracts";
 import type { MusicLibrary, MusicTrack } from "@halay/contracts";
 import { recordedBeatWav } from "../helpers/audio.js";
+import { openPanel } from "../helpers/panel.js";
 
-const sceneUrl = `http://127.0.0.1:${process.env["TEST_PRODUCTION"] === "1" ? 4174 : 5173}`;
+const sceneUrl = `http://127.0.0.1:${(process.env["TEST_PRODUCTION"] === "1" ? 4174 : 5173) + Number(process.env["HALAY_PORT_OFFSET"] ?? 0)}`;
 test.beforeEach(async ({ page, request }) => {
   const library = (await (
     await request.get("/api/music")
@@ -15,6 +16,7 @@ test.beforeEach(async ({ page, request }) => {
   await request.post("/api/settings", { data: defaultSettings });
   await page.goto("/");
   await expect(page.getByTestId("connection")).toHaveText("Bağlı");
+  await openPanel(page, "Test Paneli");
 });
 
 test("React panel routes mock joins/gifts to independent Three.js; closing panel keeps rendering", async ({
@@ -77,6 +79,7 @@ test("saved music/volume settings reach the scene, native audio and panel contro
   context,
   request,
 }, testInfo) => {
+  await openPanel(page, "Oyun");
   const scene = await context.newPage();
   await scene.addInitScript(() => {
     const Native = AudioContext;
@@ -182,6 +185,7 @@ test("saved music/volume settings reach the scene, native audio and panel contro
 test("a refused settings update is visible and does not show false saved state", async ({
   page,
 }) => {
+  await openPanel(page, "Oyun");
   await page.route("**/api/settings", (route) =>
     route.fulfill({
       status: 500,
