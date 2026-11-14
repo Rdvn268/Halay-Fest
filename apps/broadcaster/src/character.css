@@ -1,0 +1,90 @@
+:root {
+  color: #ecebf0;
+  background: #252b34;
+  font-family: "Segoe UI", sans-serif;
+}
+body {
+  margin: 0;
+}
+#character-stage {
+  position: fixed;
+  inset: 0;
+}
+canvas {
+  display: block;
+}
+header,
+nav,
+footer {
+  position: fixed;
+  z-index: 1;
+  background: #151b26e8;
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+header {
+  top: 16px;
+  left: 16px;
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+}
+header span,
+small {
+  color: #c0c9d8;
+  font-size: 12px;
+}
+nav {
+  top: 16px;
+  right: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+button {
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  background: #313b4d;
+  border: 1px solid #6e7c95;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button[aria-pressed="true"] {
+  background: #7051a4;
+}
+button:disabled {
+  opacity: 0.5;
+}
+label {
+  font-size: 12px;
+}
+footer {
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+}
+footer p {
+  margin: 0 0 4px;
+  font-size: 13px;
+}
+:focus-visible {
+  outline: 3px solid #e2b8ff;
+  outline-offset: 2px;
+}
+@media (max-width: 700px) {
+  header {
+    right: 16px;
+  }
+  nav {
+    top: 90px;
+    left: 16px;
+    right: 16px;
+    justify-content: center;
+  }
+  footer {
+    font-size: 11px;
+  }
+}

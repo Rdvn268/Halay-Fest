@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Halay Fest · Tek karakter</title>
+  </head>
+  <body>
+    <div id="character-stage"></div>
+    <header>
+      <strong>HALAY FEST / KARAKTER 01</strong
+      ><span>CC0 · 52 kemik · sanatsal onay bekliyor</span>
+    </header>
+    <nav aria-label="Karakter inceleme açıları">
+      <button data-angle="front">Önden</button
+      ><button data-angle="side">Yandan</button
+      ><button data-angle="face">Yüz</button
+      ><button data-angle="hands">El</button
+      ><button data-angle="feet">Ayak</button
+      ><label><input id="rig" type="checkbox" />İskelet</label>
+    </nav>
+    <footer>
+      <p id="character-status" role="status">GLB yükleniyor…</p>
+      <small
+        >A-pozu · gerçek Halay klibi yok · sürükleyerek döndür, tekerlekle
+        yakınlaş</small
+      >
+    </footer>
+    <script type="module" src="/src/character.ts"></script>
+  </body>
+</html>
