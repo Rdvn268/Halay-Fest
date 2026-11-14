@@ -8,7 +8,7 @@ Windows odaklı, yerelde çalışan 3D halay/horon simülatörü. **Faz 2 çalı
 
 **Yeni hazırlık panosu:** http://127.0.0.1:5173/cinematic.html (production: http://127.0.0.1:4174/cinematic.html). Araştırma filtreleri, erkek/kadın çekim brief'leri, 45 saniyelik kamera planı ve ölçü ön kontrolü çalışır. Bu bir 3D oyun görüntüsü veya bitmiş dans animasyonu değildir; müzik/varlık oynatmaz.
 
-Yeni sahne: **http://127.0.0.1:5173/review.html** (build önizlemesi: http://127.0.0.1:4174/review.html). Önden/yandan kamera, 9:16 kadraj, temas ölçümleri, klip/manifest içe aktarma ve sesli WebM kayıt düğmesi vardır. Bu ilk incelemede yalnız Halay çalışma sekansı açıktır; diğer danslar kilitlidir. `/` adresi eski görsel prototip/regresyon referansıdır. Aynı anda yalnızca bir ses sahnesi açık tutun.
+Önceki teknik inceleme sahnesi: **http://127.0.0.1:5173/review.html** (build önizlemesi: http://127.0.0.1:4174/review.html). Önden/yandan kamera, 9:16 kadraj, temas ölçümleri, klip/manifest içe aktarma ve sesli WebM kayıt düğmesi vardır. Yalnız teknik Halay çalışma sekansı açıktır; diğer danslar kilitlidir. Bu sahne kullanıcı görsel onayını almadı. `/` adresi daha eski görsel prototip/regresyon referansıdır. Aynı anda yalnızca bir ses sahnesi açık tutun.
 
 [Yeni yayıncı stüdyosu](docs/evidence/phase-2/ui-refresh/overview.png) · [Güncel müzik görünümü](docs/evidence/phase-2/ui-refresh/music.png) · [Panel yenileme raporu](docs/PANEL_UI_REPORT.md)
 
