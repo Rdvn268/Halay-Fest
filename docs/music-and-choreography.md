@@ -36,6 +36,8 @@ Geometri/klipler paylaşımlıdır; skeleton/mixer her karaktere aittir. Kalabal
 
 ## Tekrar üretilebilir kontroller
 
+Kısa/uzun Playwright koşuları normal önizlemeden ayrı portlar kullanır: dev 15173/15174, üretim 14174/14175, gateway 18787; legacy 4173. Test kütüphanesi `data/e2e.sqlite.music` içindedir. Normal önizleme 5173/5174/8787'de açık kalabilir; donanım ölçümünde eşzamanlı sahneler GPU sonuçlarını etkileyebileceği için kapatılmalıdır. [Güncel panel ve test raporu](PANEL_UI_REPORT.md).
+
 `npm run assets:character` özgün model/skin/klipler ve hash manifestini yeniden üretir. Blender veya ücretli asset servisi gerektirmez. MP3/OGG fixture'larını yeniden kodlamak isteğe bağlıdır: `scripts/create-test-audio.py` (numpy + soundfile); bu Python paketleri app/CI bağımlılığı değildir. Test kayıtları özgün kalibrasyon sinyalidir, gerçek halay/horon icrası olarak sunulmaz.
 
 ```powershell

@@ -4,6 +4,10 @@ Windows odaklı, yerelde çalışan 3D halay/horon simülatörü. **Faz 2 çalı
 
 ## Başlatma
 
+[Yeni yayıncı stüdyosu](docs/evidence/phase-2/ui-refresh/overview.png) · [Güncel müzik görünümü](docs/evidence/phase-2/ui-refresh/music.png) · [Panel yenileme raporu](docs/PANEL_UI_REPORT.md)
+
+Panel bölümleri doğrudan açılabilir: http://127.0.0.1:5174/#overview · http://127.0.0.1:5174/#music · http://127.0.0.1:5174/#test. Menü geçişleri kaydedilmemiş müzik/oyun ayarlarını korur.
+
 [Yeni iskeletli 3D sahne](docs/evidence/phase-2/hardware-preview-6.png) · [Müzik Yöneticisi](docs/evidence/phase-2/music-manager.png) · [Ölçüm ve görüntü kanıtları](docs/evidence/phase-2/README.md)
 
 Git, Node **24 LTS** (en az 24.13.1) ve npm **11** gerekir. Sürüm seçimi `.nvmrc` / `.node-version` ile yapılabilir.
@@ -55,7 +59,7 @@ $env:TEST_PRODUCTION='1'
 npm run test:e2e
 ```
 
-`npm run verify`: lint + typecheck + birim/entegrasyon testleri + build. Playwright ayrıca çalıştırılır; geliştirme ve üretim önizlemesini destekler. Linux'ta `npx playwright install --with-deps chromium` kullanın. E2E yalnızca `data/e2e.sqlite` içinde sentetik verilerle çalışır; 4173, 8787 ve uygulama portlarının boş olması gerekir. Legacy testleri internet ister; yeni sahne CDN gerektirmez.
+`npm run verify`: lint + typecheck + birim/entegrasyon testleri + build. Playwright ayrıca çalıştırılır; geliştirme ve üretim önizlemesini destekler. Linux'ta `npx playwright install --with-deps chromium` kullanın. E2E yalnızca `data/e2e.sqlite` ve ona ait `.music` klasöründe sentetik verilerle çalışır. Testler `HALAY_PORT_OFFSET=10000` kullanır: dev sahne/panel 15173/15174, üretim 14174/14175, API/WS 18787; legacy 4173'te kalır. Bu test portları boş olmalıdır; normal önizleme ayrı portlarında açık kalabilir. Legacy testleri internet ister; yeni sahne CDN gerektirmez.
 
 ## Modüller ve kabul kapsamı
 

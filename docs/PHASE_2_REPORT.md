@@ -1,5 +1,7 @@
 # Faz 2 — Teknik Teslim ve Açık Kabul Raporu
 
+**Sonraki UI güncellemesi:** [Yayıncı stüdyosu raporu](PANEL_UI_REPORT.md), yeni ekran görüntüleri ve güncel kısa test sonuçları burada izlenir. Aşağıdaki donanım ölçümleri önceki koşuya aittir; UI yenilemesinde tekrarlanmış sayılmaz.
+
 **Tarih:** 14 Kasım 2026, Europe/Istanbul. **Durum:** çalışan müzik/rig/ritim altyapısı teslim edildi; profesyonel görsel/işitsel kabul açık olduğu için Faz 2 bütünü tamamlandı olarak işaretlenmedi. [Taslak PR #3](https://github.com/Rdvn268/Halay-Fest/pull/3). **Faz 3'e geçilmedi.**
 
 ROADMAP.md baştan sona, docs/PHASE_1_REPORT.md ve mevcut kaynaklar incelendi. Dal `feat/phase-2-music-and-choreography`, kabul edilmiş Faz 1 `896d75b` üzerine kuruldu. Faz 0/1 PR'ları henüz main'e birleştirilmediği için PR tabanı `feat/phase-1-modular-runtime`; otomatik merge yapılmadı. ROADMAP, legacy ve önceki iki faz raporu değiştirilmedi.
