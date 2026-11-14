@@ -1,5 +1,13 @@
 # Risk ve bağımlılık kaydı — 14 Kasım 2026
 
+## Faz 2 görsel revizyonu
+
+- Önceki profesyonel karakter/koreografi görseli kullanıcı tarafından reddedildi; yeni çalışma kabulü kapatmaz. [Güncel denetim](PHASE_2_VISUAL_REVIEW.md).
+- Yeni npm bağımlılığı yok. Quaternius Standard CC0 model/kıyafet paketleri, kaynak sayfası ve ZIP lisansıyla doğrulandı; iki manifest ve lisans kanıtları depodadır. Genel kıyafetlerin yöresel doğruluğu yoktur.
+- Offline doku dönüştürme Windows PowerShell/System.Drawing ve Python standard library kullanır; runtime/CI bu araçlara ihtiyaç duymaz. GLB'lerde maksimum 1024 px doku, paylaşılan materyal/geometri/klip ve uygun skeleton paylaşımı vardır. 106 teknik instance kısa ölçümü gerçek 100 izleyici/yayın kabulü değildir.
+- Retarget doğrudan iki segmentli limb hiyerarşisi ve hazırlanmış bind/in-place veri bekler. Gerçek Halay mocap/Blender figürleri, FBX teslim dosyası ve uzman/kullanıcı kabulü eksiktir. Görünen mühendislik çalışmaları bu eksikleri gizlemez.
+- Kayıt 16 sn VP8/Opus WebM, en çok 24 MiB; klip dosyası 32 MiB, manifest 128 KiB, sekans en çok iki imported klip. İzin JSON'u bağımsız lisans doğrulaması sayılmaz. Ayak/avuç proxy ölçümü gerçek taban/parmak temasını kanıtlamaz.
+
 ## Faz 2 güncellemesi
 
 - Yeni runtime bağımlılığı: **music-metadata 12.5.0 (MIT)**, Node konteyner/süre kontrolü. Doğrudan sürüm ve transitive bütünlük lockfile'da; lisans `assets/licenses/music-metadata-MIT.txt` içinde. Ayrı native ses decoder'ı, cloud storage veya ücretli servis kurulmadı.

@@ -33,3 +33,9 @@ Projenin tamamına MIT veya başka lisans ataması yapılmadı; kullanıcı tesl
 Yeni uygulama Three.js 0.180.0'ı npm'den paketler. Google Fonts veya yeni ses/model/görsel varlığı eklenmedi; sistem fontu kullanılır. v0.2 geometri, nota ve hareket kaynakları kendi proje kodunun taşınmasıdır; ayrı ticari yayın hakkı onayı halen yoktur.
 
 React/react-dom/scheduler, Zod ve Three.js MIT lisansları kurulan sürümlerin LICENSE dosyalarından `apps/*/public/third-party-notices.txt` içine kopyalandı. Vite bu dosyayı iki uygulamanın build'ine dahil eder. Araç lisansları bağımlılık kaydındadır. Kod taşıma, sahiplik/yayın hakkı onayı yerine geçmez.
+
+## Faz 2 görsel revizyonu
+
+[Kaynak, arşiv hash'leri ve değişiklik kaydı](PHASE_2_VISUAL_REVIEW.md): Quaternius'un Universal Base Characters Standard ve Modular Character Outfits — Fantasy Standard arşivleri doğrudan yayıncıdan alındı; içlerindeki CC0 beyanları `assets/licenses/quaternius-*-CC0.txt` altında korundu. GLB başına SHA-256 ve kaynak girdisi, `apps/broadcaster/public/characters/humanoid/*manifest.json` dosyalarındadır. Ticari kullanım/yeniden dağıtım, kaynak sayfası ve arşivin kendi CC0 metniyle çapraz kontrol edildi. Ücretli paket kullanılmadı. Genel kıyafetler yöresel kostüm olarak onaylanmadı.
+
+Özgün teknik temas çalışmalarının ve kalibrasyon sinyalinin kapsamı `assets/licenses/halay-contact-studies-CC0.txt` içindedir. Kullanıcının YouTube referansı yalnızca incelendi; görüntü/ses/mocap olarak projeye gömülmedi, bu dosyalarla lisanslanmadı. Gerçek performans klipleri için izin ve yöresel değerlendirme hâlâ eksiktir. İçe aktarılan JSON'daki izin beyanı otomatik lisans doğrulaması değildir.
