@@ -1,5 +1,7 @@
 # Faz 2 — Teknik Teslim ve Açık Kabul Raporu
 
+**Görsel ret ve ayrı revizyon:** Kullanıcı mevcut karakter/dans kalitesini kabul etmedi. [Yeni denetim, humanoid sahnesi ve açık koreografi kapısı](PHASE_2_VISUAL_REVIEW.md). Aşağıdaki eski GLB ve donanım ölçümleri yeni modellerin veya profesyonel görsel kabulün kanıtı sayılmaz.
+
 **Sonraki UI güncellemesi:** [Yayıncı stüdyosu raporu](PANEL_UI_REPORT.md), yeni ekran görüntüleri ve güncel kısa test sonuçları burada izlenir. Aşağıdaki donanım ölçümleri önceki koşuya aittir; UI yenilemesinde tekrarlanmış sayılmaz.
 
 **Tarih:** 14 Kasım 2026, Europe/Istanbul. **Durum:** çalışan müzik/rig/ritim altyapısı teslim edildi; profesyonel görsel/işitsel kabul açık olduğu için Faz 2 bütünü tamamlandı olarak işaretlenmedi. [Taslak PR #3](https://github.com/Rdvn268/Halay-Fest/pull/3). **Faz 3'e geçilmedi.**

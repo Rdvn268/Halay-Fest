@@ -40,6 +40,7 @@ export class FileMusicPlayer {
   private paused = false;
   private waiting = false;
   private disposed = false;
+  private recordingTaps = new Set<() => void>();
   private loadingAbort: AbortController | undefined;
   unlocked = false;
   error: string | null = null;
@@ -172,6 +173,26 @@ export class FileMusicPlayer {
     await post("/api/music/transport", {
       action: this.playing ? "pause" : "play",
     });
+  }
+  /** Optional local review recorder tap. Output/beat clock continue unchanged. Release after capture. */
+  recordingAudio() {
+    if (!this.context || !this.gain || !this.unlocked)
+      throw new Error("Ses motorunu önce açın.");
+    const destination = this.context.createMediaStreamDestination();
+    this.gain.connect(destination);
+    let disposed = false;
+    const dispose = () => {
+      if (disposed) return;
+      disposed = true;
+      this.gain?.disconnect(destination);
+      for (const track of destination.stream.getTracks()) track.stop();
+      this.recordingTaps.delete(dispose);
+    };
+    this.recordingTaps.add(dispose);
+    return {
+      stream: destination.stream,
+      dispose,
+    };
   }
   async setPaused(paused: boolean) {
     this.paused = paused;
@@ -369,6 +390,7 @@ export class FileMusicPlayer {
   }
   async dispose() {
     this.disposed = true;
+    for (const dispose of this.recordingTaps) dispose();
     this.generation++;
     this.loadingAbort?.abort();
     this.media.pause();

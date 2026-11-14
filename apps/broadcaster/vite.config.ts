@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import { resolve } from "node:path";
 import { localPorts } from "../../scripts/local-ports.js";
 const ports = localPorts();
 export default defineConfig({
@@ -15,6 +16,10 @@ export default defineConfig({
   build: {
     outDir: "dist",
     rolldownOptions: {
+      input: {
+        main: resolve(import.meta.dirname, "index.html"),
+        review: resolve(import.meta.dirname, "review.html"),
+      },
       output: {
         codeSplitting: {
           groups: [

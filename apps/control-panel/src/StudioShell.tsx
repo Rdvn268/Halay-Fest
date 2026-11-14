@@ -420,6 +420,22 @@ export function ConnectionView({
 export function OverlayView() {
   return (
     <>
+      <section className="panel-card">
+        <h2>Yeni humanoid inceleme sahnesi</h2>
+        <p>
+          İnsan modelleri, açık zincir ve temas ölçümleri. Teknik hareket
+          çalışmalarıdır; görsel ve yöresel doğruluk kabulü açıktır. Aynı anda
+          yalnızca bir ses sahnesi açık tut.
+        </p>
+        <a
+          className="button"
+          href={`${sceneUrl()}/review.html`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Humanoid incelemesini aç ↗
+        </a>
+      </section>
       <p className="lead">
         Kontrol panelini yanında tut, yayın sahnesini ayrı bir pencerede aç.
       </p>

@@ -123,3 +123,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+HALAY FEST HUMANOID REVIEW ASSETS
+
+Models/hair: Quaternius — Universal Base Characters, free Standard edition.
+https://quaternius.itch.io/universal-base-characters
+Clothing: Quaternius — Modular Character Outfits - Fantasy, free Standard edition.
+https://quaternius.itch.io/modular-character-outfits-fantasy
+CC0 1.0 Universal: https://creativecommons.org/publicdomain/zero/1.0/
+Source archive license evidence and per-asset hashes are recorded in the repository
+under assets/licenses/quaternius-*-CC0.txt and characters/humanoid/*manifest.json.
+Changes: GLB embedding, normal-image URI repairs, texture resizing to 1024 pixels,
+base head masking and shared-skeleton clothing/hair binding.
+These generic outfits and technical motion studies are not approved regional Halay.
+The referenced YouTube performance/video/audio is not distributed with this app.
