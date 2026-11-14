@@ -11,18 +11,22 @@ import {
 } from "@halay/game-core";
 import { LocalStore } from "./database.js";
 import { MockSourceAdapter } from "./source.js";
+import { MusicService } from "./music-service.js";
 
-async function readJson(request: IncomingMessage): Promise<unknown> {
+async function readJson(
+  request: IncomingMessage,
+  limit = 16_384,
+): Promise<unknown> {
   if (!request.headers["content-type"]?.startsWith("application/json"))
     throw new Error("JSON gerekli.");
-  if (Number(request.headers["content-length"] ?? 0) > 16_384)
+  if (Number(request.headers["content-length"] ?? 0) > limit)
     throw new Error("İstek çok büyük.");
   let bytes = 0;
   const chunks: Buffer[] = [];
   for await (const chunk of request) {
     const buffer = Buffer.from(chunk as Uint8Array);
     bytes += buffer.length;
-    if (bytes > 16_384) throw new Error("İstek çok büyük.");
+    if (bytes > limit) throw new Error("İstek çok büyük.");
     chunks.push(buffer);
   }
   return JSON.parse(Buffer.concat(chunks).toString("utf8")) as unknown;
@@ -31,6 +35,7 @@ async function readJson(request: IncomingMessage): Promise<unknown> {
 export function createGateway(options: {
   databasePath: string;
   allowedOrigins: string[];
+  musicDirectory?: string;
 }) {
   const store = new LocalStore(options.databasePath);
   const adapter = new MockSourceAdapter();
@@ -48,6 +53,9 @@ export function createGateway(options: {
   };
   const allowedOrigin = (origin: string | undefined) =>
     origin === undefined || options.allowedOrigins.includes(origin);
+  const music = options.musicDirectory
+    ? new MusicService(store.db, options.musicDirectory, broadcast)
+    : undefined;
   let rateStart = Date.now();
   let requests = 0;
   const server = createServer(async (request, response) => {
@@ -67,6 +75,7 @@ export function createGateway(options: {
       return;
     }
     const path = request.url?.split("?")[0];
+    if (music && (await music.handle(request, response, readJson))) return;
     if (request.method === "GET" && path === "/api/health") {
       reply(200, { status: "ok", source: "mock", tiktokStatus: "unsupported" });
       return;
@@ -148,6 +157,13 @@ export function createGateway(options: {
         snapshot: state,
       } satisfies ServerMessage),
     );
+    if (music)
+      socket.send(
+        JSON.stringify({
+          kind: "music",
+          library: music.library,
+        } satisfies ServerMessage),
+      );
     // Clients consume snapshots; mutations are validated through HTTP only.
     socket.on("message", () => socket.close(1008, "Read-only socket"));
     socket.on("error", () => socket.terminate());

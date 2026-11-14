@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { librarySchema, musicTelemetrySchema } from "./music.js";
+export * from "./music.js";
 
 export const settingsSchema = z.strictObject({
   duration: z.number().int().min(5).max(60),
@@ -91,6 +93,11 @@ export type GameSnapshot = z.infer<typeof snapshotSchema>;
 export const serverMessageSchema = z.discriminatedUnion("kind", [
   z.strictObject({ kind: z.literal("snapshot"), snapshot: snapshotSchema }),
   z.strictObject({ kind: z.literal("event"), event: liveEventSchema }),
+  z.strictObject({ kind: z.literal("music"), library: librarySchema }),
+  z.strictObject({
+    kind: z.literal("music_telemetry"),
+    telemetry: musicTelemetrySchema,
+  }),
 ]);
 export type ServerMessage = z.infer<typeof serverMessageSchema>;
 export const controlSchema = z.strictObject({

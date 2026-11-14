@@ -6,6 +6,7 @@
   "dependencies": {
     "@halay/contracts": "*",
     "@halay/game-core": "*",
+    "music-metadata": "12.5.0",
     "ws": "8.23.0"
   }
 }

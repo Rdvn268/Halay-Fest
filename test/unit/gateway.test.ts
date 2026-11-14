@@ -118,7 +118,7 @@ it("migrates SQLite once and restores saved settings on reopening", async () => 
     gateway!.store.db
       .prepare("SELECT COUNT(*) AS n FROM schema_migrations")
       .get()?.["n"],
-  ).toBe(1);
+  ).toBe(2);
 });
 it("bounds mock event storage and keeps a repeated event from being applied twice", () => {
   const store = new LocalStore(":memory:");

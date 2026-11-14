@@ -1,4 +1,16 @@
-# Varlık ve lisans envanteri — Faz 0–1
+# Varlık ve lisans envanteri — Faz 0–2
+
+## Faz 2 ekleri
+
+| Varlık | Köken ve lisans kanıtı | Sınır |
+|---|---|---|
+| festival-dancer.glb | `scripts/create-character.ts` ile özgün mesh, skin weights, 17 kemik ve 12 keyframe klibi; [asset LICENSE](../apps/broadcaster/public/characters/LICENSE.txt), [SHA-256 manifesti](../apps/broadcaster/public/characters/festival-dancer.manifest.json); yalnız bu yeni asset CC0-1.0 | İndirilmiş model/mocap yok. Profesyonel yöresel hareket doğrulaması yapılmadı. Altı varyasyon aynı kostümün renkleridir. |
+| Yeni zemin/çatı/sıva dokuları ve festival detayları | `packages/halay-game/src/environment.ts` içindeki özgün Canvas/geometri; dış texture yok | Eski köy kaynağının hak durumu aşağıda korunur. |
+| WAV/MP3/OGG test kayıtları | Özgün kalibrasyon sinyali; `test/helpers/audio.ts`, `scripts/create-test-audio.py`, [fixture açıklaması](../test/fixtures/audio/README.md); CC0-1.0 | Üretim müzik paketi veya gerçek halk müziği kaydı değildir. |
+| music-metadata 12.5.0 | Kurulu paketin MIT metni: [yerel kopya](../assets/licenses/music-metadata-MIT.txt), [birincil kaynak](https://github.com/Borewit/music-metadata) | Node tarafında konteyner/süre çözümlemesi; yüklenen kaydın yayın iznini doğrulamaz. |
+| Kullanıcının yüklediği müzik | Dosya ve metadata yerel kalır; uygulama yayın hakkı devralmaz | Bu çalışmaya izin belgeli gerçek Halay/Horon icrası teslim edilmedi. Canlı müzik hakları ve gerçek icrada işitsel/koreografik kabul açık. |
+
+Yeni varlık lisansı tüm depoya veya legacy'ye lisans atamaz. Soundfile/numpy/matplotlib yalnız test fixture kodlamak için geçici geliştirme araçları olarak kullanıldı; uygulama veya CI bağımlılığına eklenmedi. Ses decoder'ı tarayıcıya aittir; codec/platform desteği değişebilir. Lisans kanıtı bulunmayan arama sonuçlarından müzik/model indirilmedi.
 
 | Varlık / kaynak | İnceleme sonucu | Hak/kanıt durumu |
 |---|---|---|

@@ -1,5 +1,18 @@
 # Risk ve bağımlılık kaydı — 14 Kasım 2026
 
+## Faz 2 güncellemesi
+
+- Yeni runtime bağımlılığı: **music-metadata 12.5.0 (MIT)**, Node konteyner/süre kontrolü. Doğrudan sürüm ve transitive bütünlük lockfile'da; lisans `assets/licenses/music-metadata-MIT.txt` içinde. Ayrı native ses decoder'ı, cloud storage veya ücretli servis kurulmadı.
+- R05: rig geometry/material/clip paylaşımı, karakter skeleton/mixer dispose, 600 frame/onset kaydı sınırı ve kalabalık gölge/DPR sınırı var. Kısa profil memory leak veya 5 saat kabulü değildir.
+- R06: müzik AudioContext zamanı ile örneklenir; render dt clamp artık yerel tur süresini yavaşlatmaz. Ortak otoriter tur/restart restore hâlâ Faz 3. Saat-grid ölçümü akustik/OBS gecikmesi ölçmez.
+- R07: gerçek rig, el IK, etiket çakışma reddi, kadraja göre kamera uzaklığı, 1080×1920 yayın görünümü eklendi. En fazla 24 etiket görünür; 100 ismin aynı anda okunacağı vaat edilmez. TikTok UI/OBS pilotu açık.
+- R08/R12: test sesleri gerçek folk icrası değildir. Hakları doğrulanmış kayıt ve yöresel koreografi incelemesi yapılmadan profesyonel yayın kabulü verilmez. Yazılım GPU ölçümü hedef donanım 60 FPS sonucu değildir; beş saat/20 dk gerçek tur ayrı kabul konularıdır.
+- R15: dosya/DB iki ayrı kalıcı ortamdır. Normal işlem hatası rollback ile sınanır; süreç iki commit arasında kesilirse sahipsiz dosya kalabilir. Dosyalar kotaya sayılır, otomatik silinmez; DB + müzik klasörü birlikte yedeklenmelidir.
+- R16: onset analizi sabit tempolu, belirgin transient içeren kayıtlar içindir. Düşük güven/karmaşık ritim/değişken tempo manuel grid gerektirir. Dans/ölçü metadata'sı tempo tahmininden bağımsızdır.
+- R17: tarayıcı ses izni sahnede bir kez verilir; panel kapanınca çalışır. Tek aktif sesli sahne desteklenir. Uyku, sahne kapanması veya Node kapanması için kesintisiz ses garantisi yoktur.
+
+Güncel ölçümler ve kabul sınırları [Faz 2 raporunda](PHASE_2_REPORT.md); eski faz tablosu aşağıda tarihsel gözlem olarak korunur.
+
 Faz 0 tablosu aşağıda tarihsel gözlemdir; güncel Faz 1 karşılıkları bu belgenin sonundadır.
 
 ## Mevcut riskler

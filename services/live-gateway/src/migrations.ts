@@ -11,4 +11,11 @@ export const migrations = [
   CREATE INDEX event_inbox_received_at ON event_inbox(received_at);
 `,
   },
+  {
+    version: 2,
+    sql: `
+    CREATE TABLE music_tracks(id TEXT PRIMARY KEY, json TEXT NOT NULL, bytes INTEGER NOT NULL);
+    CREATE TABLE music_library(id INTEGER PRIMARY KEY CHECK(id=1), json TEXT NOT NULL);
+  `,
+  },
 ] as const;
