@@ -1,0 +1,31 @@
+{
+  "capturedAt": "2026-11-14T22:46:08.896Z",
+  "url": "http://127.0.0.1:5173/cinematic.html",
+  "browser": "158.0.8127.18",
+  "kind": "preproduction-web-page-only",
+  "real3DScene": false,
+  "performanceMeasured": false,
+  "audioVideoProduced": false,
+  "pageErrors": [],
+  "sourceCommit": "25e33cf",
+  "sourceHashes": {
+    "apps/broadcaster/src/cinematic.ts": "d7a3c370865861e82eea57c17433904ba8586209d08b29207952850bbaa7bcb1",
+    "apps/broadcaster/src/cinematic.css": "6b5a790069cb445cd346dccd5f028f09ca601e5d20ac313d4d98a50cf7c3e6d5",
+    "packages/halay-game/src/cinematic-plan.ts": "f7ef684ba020d66bfe1b534a4748632f5e06ffe4c08c272dd0254b1a062b2f9e",
+    "packages/halay-game/src/dance-briefs.ts": "0ecaa714d7111250a7577e27389dda4f1a98c553847ef24f67be4d42b96cac33"
+  },
+  "images": {
+    "preparation-desktop.png": {
+      "capturedAt": "2026-11-14T22:46:08.604Z",
+      "sha256": "bb48f3284bd47e2a9f1d5607bbc30cc15ffc06a11a4abeaf533b6cbe05c21aff"
+    },
+    "preparation-mobile.png": {
+      "capturedAt": "2026-11-14T22:47:17.262Z",
+      "sha256": "a20b3c3e044d5fd1c4180c48f80efb8d4c93bcdfc0899dfd469163cc9f056e8c"
+    },
+    "halay-briefs.png": {
+      "capturedAt": "2026-11-14T22:46:08.821Z",
+      "sha256": "0122b568dface5c9eac78bbe6feb33fe107d0191c5141a24ee7cdeaaddd34f4a"
+    }
+  }
+}

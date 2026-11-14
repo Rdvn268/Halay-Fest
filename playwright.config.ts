@@ -23,6 +23,13 @@ export default defineConfig({
   },
   projects: [
     {
+      name: "cinematic-preparation",
+      testMatch: "cinematic-plan.spec.ts",
+      use: {
+        baseURL: `http://127.0.0.1:${production ? ports.productionScene : ports.devScene}`,
+      },
+    },
+    {
       name: "humanoid-hardware",
       testMatch: "humanoid-hardware.spec.ts",
       use: {
