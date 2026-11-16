@@ -74,6 +74,19 @@ footer p {
   outline: 3px solid #e2b8ff;
   outline-offset: 2px;
 }
+details {
+  margin-bottom: 8px;
+}
+details label {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin: 6px 12px 6px 0;
+}
+details input[type="file"] {
+  max-width: 230px;
+}
 @media (max-width: 700px) {
   header {
     right: 16px;

@@ -1,5 +1,7 @@
 # Deli Horon — referans incelemesi, üretim kabulü açık
 
+**Güncelleme, 16 Kasım:** Kullanıcı ayrı izin belgesi isteme koşulunu kaldırdı. Yeniden izin sorulmadan yerel video-tabanlı hareket denemesi yapıldı; aşağıdaki “yanıt bekleniyor / klip üretilmedi” ifadeleri önceki incelemeyi anlatır. Güncel somut sonuçlar [yerel prototip raporundadır](DELI_HORON_LOCAL_PROTOTYPE.md). Ticari haklar doğrulandı diye işaretlenmedi.
+
 16 Kasım 2026. Öncelik kullanıcı isteğiyle Halay'dan Deli Horon'a değişti. Başlangıç PR #6 / `db5ce92d22fcf341e795706c6caae34c4da858e3`. Bu kayıt bir animasyon teslimi değildir; yeni karakter, panel veya meydan üretilmedi.
 
 ## Gerçekten erişilen kaynak

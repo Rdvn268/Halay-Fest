@@ -20,8 +20,41 @@
       ><label><input id="rig" type="checkbox" />İskelet</label>
     </nav>
     <footer>
+      <details>
+        <summary>Yerel hareket incelemesi</summary>
+        <p>
+          Dosyalar bu tarayıcıda kalır. İçe aktarma, hareket veya kullanım hakkı
+          onayı değildir.
+        </p>
+        <label
+          >Animasyonlu karakter GLB
+          <input id="local-motion" type="file" accept=".glb" disabled
+        /></label>
+        <label
+          >Referans sesi
+          <input id="local-audio" type="file" accept="audio/*" disabled
+        /></label>
+        <button id="motion-play" disabled>Oynat</button>
+        <button id="motion-pause" disabled>Duraklat</button>
+        <label
+          >Hareket zamanı
+          <input
+            id="motion-time"
+            type="range"
+            min="0"
+            max="0"
+            step="0.01"
+            value="0"
+            disabled
+        /></label>
+        <output id="motion-position">0.00 sn</output>
+        <audio id="reference-audio" preload="metadata"></audio>
+        <p id="motion-status" aria-live="polite">
+          Yerel klip seçilmedi; dağıtılan karakter A-pozunda.
+        </p>
+      </details>
       <p id="character-status" role="status">GLB yükleniyor…</p>
-      <small
+      <small id="character-note"
         >A-pozu · gerçek Halay klibi yok · sürükleyerek döndür, tekerlekle
         yakınlaş</small
       >
