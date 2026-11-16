@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
 
 // Synthetic loader/clock regression fixture, NEVER a claimed dance performance.
 async function syntheticInspectionClip() {
@@ -231,5 +232,58 @@ test("local motion import, seek, pause and invalid replacement preserve the 52 b
   });
   await expect(page.locator("#motion-status")).toContainText("Klip reddedildi");
   await expect(page.locator("#motion-play")).toBeEnabled();
+  expect(errors).toEqual([]);
+});
+
+test("loads the real 4.63 second contact cleanup in the existing viewer", async ({
+  page,
+}) => {
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.goto("/character.html");
+  await expect(page.locator("#local-motion")).toBeEnabled({ timeout: 30000 });
+  await page.locator("summary").click();
+  await page
+    .locator("#local-motion")
+    .setInputFiles(
+      resolve(
+        "assets/animation-studies/deli-horon-cleanup/wedding-guest-01-cleaned.glb",
+      ),
+    );
+  await expect(page.locator("#motion-status")).toContainText("4.63 sn");
+  await page.getByRole("button", { name: "Oynat", exact: true }).click();
+  await expect
+    .poll(() =>
+      page.evaluate(
+        () =>
+          (
+            window as unknown as {
+              __halayCharacter: { metrics: () => { motionTime: number } };
+            }
+          ).__halayCharacter.metrics().motionTime,
+      ),
+    )
+    .toBeGreaterThan(0.3);
+  await page.getByRole("button", { name: "Duraklat", exact: true }).click();
+  await page.locator("#motion-time").fill("4.6");
+  for (const angle of ["Yandan", "Yüz", "El", "Ayak", "Önden"]) {
+    await page.getByRole("button", { name: angle, exact: true }).click();
+    await expect(
+      page.getByRole("button", { name: angle, exact: true }),
+    ).toHaveAttribute("aria-pressed", "true");
+  }
+  const metrics = await page.evaluate(() =>
+    (
+      window as unknown as {
+        __halayCharacter: { metrics: () => Record<string, unknown> };
+      }
+    ).__halayCharacter.metrics(),
+  );
+  expect(metrics).toMatchObject({
+    bones: 52,
+    skinnedMeshes: 9,
+    clips: 1,
+    animationStatus: "local-unvalidated-motion-study",
+  });
   expect(errors).toEqual([]);
 });
