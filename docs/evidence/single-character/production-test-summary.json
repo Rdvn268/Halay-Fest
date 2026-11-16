@@ -1,0 +1,27 @@
+{
+  "mode": "production",
+  "startTimeUtc": "2026-11-14T23:33:22.250000+00:00",
+  "durationMs": 219981.17299999998,
+  "stats": {
+    "total": 23,
+    "expected": 20,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 3,
+    "ok": true
+  },
+  "projects": [
+    "production-character",
+    "cinematic-preparation",
+    "humanoid-hardware",
+    "humanoid-review",
+    "panel-ui",
+    "phase-2-hardware",
+    "phase-2-long",
+    "legacy",
+    "phase-1",
+    "phase-2"
+  ],
+  "sourceRuntimeCommit": "008bae9",
+  "note": "Completed production run started with TEST_PRODUCTION=1 on 2026-11-15; development run separately passed 20 tests. Long/GPU opt-in tests were skipped."
+}
