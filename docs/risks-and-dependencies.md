@@ -95,3 +95,8 @@ Pose Landmarker Heavy, resmi [MediaPipe API belgesi](https://developers.google.c
 ## Tek karakter üretim araçları — 15 Kasım 2026
 
 Yeni npm/runtime bağımlılığı yok. Yerel, Git'e alınmayan üretim araçları: Blender **4.5.16 LTS** (GPL; resmi Windows ZIP SHA-256 `e258e90a1ebc14798ad65b3426bc5f11f5e0e013541c61cc7c3ee9bbf4ca0ce6`) ve MPFB **2.0.18 kaynak sürümü**, commit `9de0707fdc88438d7c53a1a2ac7937d9221e2431` (kod GPL-3.0-or-later, grafik varlıklar/çıktılar CC0-1.0). MakeHuman System Assets CC0 paketi ve seçilmiş dosyaların kaynak/hash/lisans kanıtları `assets/licenses/makehuman-character-provenance.txt` ile karakter `build-info.json` içindedir. Blender/MPFB son kullanıcı kurulumu veya normal CI için gerekli değildir; paketlenmiş GLB runtime'da yüklenir. Blender kaynağındaki rig/mesh/dokular eklentisiz açılabilir; phenotype yeniden üretimi MPFB ister. Gerçek Halay klibi, artist onayı, yöresel giysi ve altılı/uzun süre performans kabulü açık.
+
+
+## Deli Horon temas temizliği araçları — 17 Kasım 2026
+
+Normal npm/runtime bağımlılığı eklenmedi. Git dışında yerel üretimde RTMLib (`5ea82df885d6f2a66923f1de2d15c799af0ed732`, Apache-2.0) ve ONNX Runtime 1.23.2 (MIT) kullanıldı. [RTMLib kaynak/lisansı](https://github.com/Tau-J/rtmlib) ve [resmi MMPose projesi](https://github.com/open-mmlab/mmpose) incelendi. Resmi HALPE26 model URL/hash kaydı `assets/animation-studies/deli-horon-cleanup/quality-report.json` içindedir; model ağırlıkları, kaynak video, ses ve ham kareler dağıtılmadı. Araç lisansları performansın ticari kullanım hakkını doğrulamaz. Çıktı inceleme amaçlıdır; sol destek, ölçülmemiş derinlik ve sanatsal kabul açıktır.
