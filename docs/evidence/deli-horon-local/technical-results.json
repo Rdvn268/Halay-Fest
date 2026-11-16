@@ -1,0 +1,148 @@
+{
+  "date": "2026-11-16",
+  "source": "https://www.youtube.com/watch?v=lEE_s05sTkM",
+  "kind": "single-camera-video-estimated-retarget-study-not-mocap",
+  "motionRightsVerified": false,
+  "userWaivedSeparatePaperwork": true,
+  "distributionStatus": "diagnostic-review-only-not-a-commercially-cleared-production-asset",
+  "inputQuality": {
+    "samples": 300,
+    "durationSeconds": 19.966666666666665,
+    "missingSamples": 35,
+    "longestMissingRunSamples": 10,
+    "lowLegVisibilitySamples": 192,
+    "eligibleForUninterruptedRetarget": false,
+    "artApproved": false,
+    "contactValidated": false
+  },
+  "artApproved": false,
+  "footContactValidated": false,
+  "beatMatchValidated": false,
+  "loopValidated": false,
+  "sourceCharacterUnchanged": true,
+  "glb": {
+    "joints": 52,
+    "skinnedMeshes": 9,
+    "clips": 1,
+    "animationChannels": 156,
+    "animationValuesFinite": true,
+    "timesStrictlyIncreasing": true,
+    "firstAnimationTimeSeconds": 0.0,
+    "lastAnimationTimeSeconds": 19.96666717529297
+  },
+  "playback": {
+    "front": {
+      "samples": 401,
+      "maxSampledMediaClockDifferenceSeconds": 0.043550824707029534,
+      "finalRollingWindowMetrics": {
+        "loaded": true,
+        "bones": 52,
+        "skinnedMeshes": 9,
+        "clips": 1,
+        "motionTime": 19.96666717529297,
+        "motionDuration": 19.96666717529297,
+        "frames": 2976,
+        "frameP95Ms": 7,
+        "fps": 143.99539214745144,
+        "triangles": 105890,
+        "drawCalls": 11,
+        "width": 1080,
+        "height": 1920,
+        "animationStatus": "local-unvalidated-motion-study"
+      },
+      "pageErrors": [],
+      "recordingLabel": "VIDEO ESTIMATE / DIAGNOSTIC ONLY",
+      "maxActiveMediaClockDifferenceSeconds": 0.010667000000001536,
+      "reviewVideoAudioTracks": 0
+    },
+    "side": {
+      "samples": 401,
+      "maxSampledMediaClockDifferenceSeconds": 0.06266582470703241,
+      "finalRollingWindowMetrics": {
+        "loaded": true,
+        "bones": 52,
+        "skinnedMeshes": 9,
+        "clips": 1,
+        "motionTime": 19.96666717529297,
+        "motionDuration": 19.96666717529297,
+        "frames": 2978,
+        "frameP95Ms": 7,
+        "fps": 143.98848092152627,
+        "triangles": 105890,
+        "drawCalls": 11,
+        "width": 1080,
+        "height": 1920,
+        "animationStatus": "local-unvalidated-motion-study"
+      },
+      "pageErrors": [],
+      "recordingLabel": "VIDEO ESTIMATE / DIAGNOSTIC ONLY",
+      "maxActiveMediaClockDifferenceSeconds": 0.010667000000000648,
+      "reviewVideoAudioTracks": 0
+    }
+  },
+  "localOutputs": [
+    {
+      "path": "data/private-prototypes/deli-horon/wedding-guest-01-deli-horon-study.blend",
+      "localOnly": true,
+      "bytes": 21129211,
+      "sha256": "1eced50d71f2ecb5d3cf1d75e305be9cebf38e9611165fb475e3b3b8763e05dd"
+    },
+    {
+      "path": "data/private-prototypes/deli-horon/wedding-guest-01-deli-horon-study.glb",
+      "localOnly": true,
+      "bytes": 18344516,
+      "sha256": "17d9e3e80cc26d9a65a5fe2f015e96af7ac039db123249a5505b7598f89d9557"
+    },
+    {
+      "path": "data/private-prototypes/deli-horon/front-study-with-audio.mp4",
+      "localOnly": true,
+      "bytes": 4625779,
+      "sha256": "5983fd008c7dcf0ed767fc41a86dfdef008421a8fd02325a7f969938d05bb442"
+    },
+    {
+      "path": "data/private-prototypes/deli-horon/side-study-with-audio.mp4",
+      "localOnly": true,
+      "bytes": 3732778,
+      "sha256": "c910b226bd10b40d619b98f1719e7d808a3b3da9b4e25324113146c3178ee5ec"
+    }
+  ],
+  "reviewOutputs": [
+    {
+      "path": "assets/animation-studies/deli-horon/front-8s.png",
+      "localOnly": false,
+      "bytes": 359322,
+      "sha256": "91bab5627d67eda52878819a4f1cd7e109a0ecadfc71d260608d0a61a55c63b9"
+    },
+    {
+      "path": "assets/animation-studies/deli-horon/front-study.mp4",
+      "localOnly": false,
+      "bytes": 4289759,
+      "sha256": "ec801680638f42c77c6cce7a15aebb6edb0cdfdc47b3e2ef825ea135dbeea4dd"
+    },
+    {
+      "path": "assets/animation-studies/deli-horon/side-8s.png",
+      "localOnly": false,
+      "bytes": 271391,
+      "sha256": "aaafb7ed82c6f52b09cb00e9b6a137faaaf93c8b050464b180601eab9653306c"
+    },
+    {
+      "path": "assets/animation-studies/deli-horon/side-study.mp4",
+      "localOnly": false,
+      "bytes": 3395346,
+      "sha256": "84c1be7939d605914c8b98684ecf2142fa02aa02e2a8fa730385f5edd2fd69f3"
+    },
+    {
+      "path": "assets/animation-studies/deli-horon/wedding-guest-01-study.blend",
+      "localOnly": false,
+      "bytes": 21129211,
+      "sha256": "1eced50d71f2ecb5d3cf1d75e305be9cebf38e9611165fb475e3b3b8763e05dd"
+    },
+    {
+      "path": "assets/animation-studies/deli-horon/wedding-guest-01-study.glb",
+      "localOnly": false,
+      "bytes": 18344516,
+      "sha256": "17d9e3e80cc26d9a65a5fe2f015e96af7ac039db123249a5505b7598f89d9557"
+    }
+  ],
+  "sourceVideoAndAudioCommitted": false
+}
