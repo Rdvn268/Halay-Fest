@@ -46,6 +46,12 @@ export class ProductionCharacterView {
   private bones = 0;
   private skins = 0;
   private loadController = new AbortController();
+  private mixer: T.AnimationMixer | null = null;
+  private clip: T.AnimationClip | null = null;
+  private motionTime = 0;
+  private motionClock: (() => number) | null = null;
+  private motionHips: T.Bone | null = null;
+  private cameraFollowOffset = new T.Vector3();
 
   constructor(private container: HTMLElement) {
     this.renderer = new T.WebGLRenderer({
@@ -143,7 +149,7 @@ export class ProductionCharacterView {
 
   setAngle(angle: CharacterAngle) {
     const target = new T.Vector3(0, 0.88, 0);
-    this.height = 2.05;
+    this.height = this.clip ? 2.65 : 2.05;
     if (angle === "face") {
       target.set(0, 1.54, 0);
       this.height = 0.45;
@@ -159,6 +165,25 @@ export class ProductionCharacterView {
       target.set(0, 0.13, 0.05);
       this.height = 1.15;
     }
+    this.cameraFollowOffset.set(0, 0, 0);
+    if (this.motionHips) {
+      const hips = this.motionHips.getWorldPosition(new T.Vector3());
+      if (angle === "front" || angle === "side") {
+        target.x = hips.x;
+        target.z = hips.z;
+      } else if (angle === "face") {
+        bindHumanoid(this.model!, PRODUCTION_RIG).head.getWorldPosition(target);
+        target.y += 0.05;
+      } else if (angle === "feet") {
+        const rig = bindHumanoid(this.model!, PRODUCTION_RIG);
+        rig.footL.getWorldPosition(target);
+        target
+          .add(rig.footR.getWorldPosition(new T.Vector3()))
+          .multiplyScalar(0.5);
+        target.y += 0.06;
+      }
+      this.cameraFollowOffset.set(target.x - hips.x, 0, target.z - hips.z);
+    }
     this.camera.position
       .copy(target)
       .add(angle === "side" ? new T.Vector3(4, 0, 0) : new T.Vector3(0, 0, 4));
@@ -170,6 +195,111 @@ export class ProductionCharacterView {
 
   showRig(visible: boolean) {
     if (this.helper) this.helper.visible = visible;
+  }
+  /** Explicit local review only. Never replaces the shipped inspection asset. */
+  async loadLocalMotion(bytes: ArrayBuffer) {
+    if (bytes.byteLength > 32 * 1024 * 1024 || bytes.byteLength < 20)
+      throw new Error("Local GLB must be between 20 bytes and 32 MiB");
+    const header = new DataView(bytes);
+    if (
+      header.getUint32(0, true) !== 0x46546c67 ||
+      header.getUint32(4, true) !== 2 ||
+      header.getUint32(8, true) !== bytes.byteLength ||
+      header.getUint32(16, true) !== 0x4e4f534a
+    )
+      throw new Error("Invalid GLB 2 container");
+    const document = JSON.parse(
+      new TextDecoder().decode(
+        new Uint8Array(bytes, 20, header.getUint32(12, true)),
+      ),
+    ) as { buffers?: { uri?: string }[]; images?: { uri?: string }[] };
+    if (
+      [...(document.buffers ?? []), ...(document.images ?? [])].some(
+        (r) => r.uri,
+      )
+    )
+      throw new Error("Local review requires embedded GLB resources");
+    const manager = new T.LoadingManager();
+    manager.setURLModifier((url) => {
+      if (!url.startsWith("blob:") && !url.startsWith("data:"))
+        throw new Error("External resource rejected");
+      return url;
+    });
+    const gltf = await new GLTFLoader(manager).parseAsync(bytes, "");
+    try {
+      const bound = bindHumanoid(gltf.scene, PRODUCTION_RIG);
+      const bones = new Set<T.Bone>();
+      let skins = 0;
+      gltf.scene.traverse((o) => {
+        if (o instanceof T.Bone) bones.add(o);
+        if (o instanceof T.SkinnedMesh) {
+          skins++;
+          o.castShadow = o.receiveShadow = true;
+          // Bind-pose spheres do not cover root-translated bones. This isolated
+          // one-character review must not cull limbs using stale A-pose bounds.
+          o.frustumCulled = false;
+        }
+      });
+      const clip = gltf.animations[0];
+      if (
+        bones.size !== 52 ||
+        !skins ||
+        gltf.animations.length !== 1 ||
+        !clip ||
+        !Number.isFinite(clip.duration) ||
+        clip.duration <= 0 ||
+        clip.duration > 120 ||
+        !clip.tracks.length ||
+        !clip.validate()
+      )
+        throw new Error(
+          "Expected 52 bones and one valid clip (up to 120 seconds)",
+        );
+      if (this.disposed) throw new Error("Viewer disposed");
+      this.mixer?.stopAllAction();
+      if (this.model) {
+        this.mixer?.uncacheRoot(this.model);
+        this.scene.remove(this.model);
+        this.release(this.model);
+      }
+      if (this.helper) {
+        this.scene.remove(this.helper);
+        this.helper.dispose();
+      }
+      this.model = gltf.scene;
+      this.motionHips = bound.hips;
+      this.bones = bones.size;
+      this.skins = skins;
+      this.scene.add(this.model);
+      this.helper = new T.SkeletonHelper(this.model);
+      this.scene.add(this.helper);
+      this.helper.visible = false;
+      this.clip = clip;
+      this.mixer = new T.AnimationMixer(this.model);
+      const action = this.mixer.clipAction(clip);
+      action.setLoop(T.LoopOnce, 1);
+      action.clampWhenFinished = true;
+      action.play();
+      this.seekMotion(0);
+      this.setAngle("front");
+      return clip.duration;
+    } catch (error) {
+      this.release(gltf.scene);
+      throw error;
+    }
+  }
+  seekMotion(seconds: number) {
+    if (!Number.isFinite(seconds)) throw new Error("Invalid motion time");
+    this.motionTime = T.MathUtils.clamp(seconds, 0, this.clip?.duration ?? 0);
+    if (this.mixer && this.clip) {
+      // Re-enable a clamped action after seeking back from its final frame.
+      const action = this.mixer.clipAction(this.clip);
+      action.reset().play();
+      this.mixer.setTime(this.motionTime);
+    }
+  }
+  setMotionClock(clock: (() => number) | null) {
+    this.motionClock = clock;
   }
   private resize() {
     const w = Math.max(1, this.container.clientWidth),
@@ -188,6 +318,19 @@ export class ProductionCharacterView {
       if (this.timings.length > 300) this.timings.shift();
     }
     this.previous = now;
+    if (this.motionClock) this.seekMotion(this.motionClock());
+    if (this.motionHips) {
+      // Keep translated diagnostic motion in frame at portrait aspect ratios.
+      // Root tracks stay intact; only the inspection camera follows X/Z.
+      const hips = this.motionHips.getWorldPosition(new T.Vector3());
+      const delta = new T.Vector3(
+        hips.x + this.cameraFollowOffset.x - this.controls.target.x,
+        0,
+        hips.z + this.cameraFollowOffset.z - this.controls.target.z,
+      );
+      this.camera.position.add(delta);
+      this.controls.target.add(delta);
+    }
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
     this.frames++;
@@ -200,7 +343,9 @@ export class ProductionCharacterView {
       loaded: !!this.model,
       bones: this.bones,
       skinnedMeshes: this.skins,
-      clips: 0,
+      clips: this.clip ? 1 : 0,
+      motionTime: this.motionTime,
+      motionDuration: this.clip?.duration ?? 0,
       frames: this.frames,
       frameP95Ms: sorted[Math.floor(sorted.length * 0.95)] ?? null,
       fps: this.timings.length
@@ -210,7 +355,9 @@ export class ProductionCharacterView {
       drawCalls: this.renderer.info.render.calls,
       width: this.renderer.domElement.width,
       height: this.renderer.domElement.height,
-      animationStatus: "no-licensed-halay-performance",
+      animationStatus: this.clip
+        ? "local-unvalidated-motion-study"
+        : "no-licensed-halay-performance",
     };
   }
   private release(root: T.Object3D) {
@@ -237,6 +384,10 @@ export class ProductionCharacterView {
   dispose() {
     this.disposed = true;
     this.loadController.abort();
+    this.motionClock = null;
+    this.motionHips = null;
+    this.mixer?.stopAllAction();
+    if (this.model) this.mixer?.uncacheRoot(this.model);
     cancelAnimationFrame(this.animation);
     this.observer.disconnect();
     this.controls.dispose();
