@@ -1,12 +1,12 @@
 # HALAY FEST
 
-**Güncel çalışma: Faz 2 sinematik sanat revizyonu, kabul açık.** Dal: `feat/phase-2-cinematic-art-reset`. [Sanat standardı](docs/art-direction/ART_BIBLE.md), [varlık kaydı](docs/art-direction/ASSET_REGISTER.md), [erkek/kadın dans araştırması](docs/art-direction/DANCE_RESEARCH.md) ve [sonuç raporu](docs/art-direction/RESET_REPORT.md). Gerçekçi altı karakter ve izinli gerçek performans klipleri henüz yok; önceki modeller/temas çalışmaları kullanıcı tarafından kabul edilmedi.
+**Güncel teslim: Faz 2 tek anatomik karakter üretimi, sanatsal kabul açık.** Dal: `feat/phase-2-single-character-production`. [Blender kaynak](assets/characters/wedding-guest-01/wedding-guest-01.blend), [oyun GLB'si](apps/broadcaster/public/characters/production/wedding-guest-01.glb), [gerçek motor görüntüleri ve test raporu](docs/SINGLE_CHARACTER_REPORT.md). CC0 MakeHuman tabanından giyimli tek erkek karakter; gerçek Halay klibi yok. Altı farklı karakter ve 45 saniye sahne teslim edilmedi. PR #5 taslak olarak korunuyor.
 
 Windows odaklı, yerelde çalışan 3D halay/horon simülatörü. **Faz 2 çalışması: dosya müziği, beat-clock ve iskeletli GLB karakterler. Gerçek TikTok bağlantısı desteklenmiyor.** Ana gereksinim [ROADMAP.md](ROADMAP.md); Faz 0 referansı [korunmuş v0.2](legacy/v0.2/README.md). Açık kabul konuları [Faz 2 raporunda](docs/PHASE_2_REPORT.md) izlenir.
 
 ## Başlatma
 
-**Yeni hazırlık panosu:** http://127.0.0.1:5173/cinematic.html (production: http://127.0.0.1:4174/cinematic.html). Araştırma filtreleri, erkek/kadın çekim brief'leri, 45 saniyelik kamera planı ve ölçü ön kontrolü çalışır. Bu bir 3D oyun görüntüsü veya bitmiş dans animasyonu değildir; müzik/varlık oynatmaz.
+**Gerçek 3D karakter:** http://127.0.0.1:5173/character.html (production: http://127.0.0.1:4174/character.html). GLB, Three.js'te render edilir. Önden/yandan, yüz/el/ayak yakın planı ve iskelet görünümü; sürükleyerek döndürme/yakınlaşma çalışır. Model A-pozundadır; gerçek Halay animasyonu eklenmedi. Mevcut müzik/panel/oyun akışını kontrol etmez.
 
 Önceki teknik inceleme sahnesi: **http://127.0.0.1:5173/review.html** (build önizlemesi: http://127.0.0.1:4174/review.html). Önden/yandan kamera, 9:16 kadraj, temas ölçümleri, klip/manifest içe aktarma ve sesli WebM kayıt düğmesi vardır. Yalnız teknik Halay çalışma sekansı açıktır; diğer danslar kilitlidir. Bu sahne kullanıcı görsel onayını almadı. `/` adresi daha eski görsel prototip/regresyon referansıdır. Aynı anda yalnızca bir ses sahnesi açık tutun.
 
@@ -19,7 +19,7 @@ Panel bölümleri doğrudan açılabilir: http://127.0.0.1:5174/#overview · htt
 Git, Node **24 LTS** (en az 24.13.1) ve npm **11** gerekir. Sürüm seçimi `.nvmrc` / `.node-version` ile yapılabilir.
 
 ```powershell
-git clone --branch feat/phase-2-cinematic-art-reset https://github.com/Rdvn268/Halay-Fest.git
+git clone --branch feat/phase-2-single-character-production https://github.com/Rdvn268/Halay-Fest.git
 cd Halay-Fest
 npm ci
 npm run dev

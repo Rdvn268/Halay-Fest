@@ -12,3 +12,4 @@ test-results/
 data/
 .DS_Store
 Thumbs.db
+*.blend1

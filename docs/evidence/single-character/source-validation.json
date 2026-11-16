@@ -1,0 +1,10 @@
+{
+  "blender": "4.5.16 LTS",
+  "runtimeMeshes": 9,
+  "sourceMeshes": 9,
+  "bones": 52,
+  "packedImages": 10,
+  "missingPackedImages": [],
+  "authoringShapeKeys": 14,
+  "runtimeShapeKeys": 0
+}

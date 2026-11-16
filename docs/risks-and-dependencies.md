@@ -85,3 +85,7 @@ Node 24 LTS ve npm 11 kullanılır ([Node sürüm tablosu](https://nodejs.org/en
 | @types/ws | 8.18.2 | MIT |
 
 Metadata ve kurulan LICENSE dosyaları kontrol edildi. SQLite için ek native bağımlılık kurulmadı. [Vite preview proxy](https://vite.dev/config/preview-options.html#preview-proxy), [Rolldown kod bölme](https://rolldown.rs/reference/OutputOptions.codeSplitting) ve [Playwright WS hata enjeksiyonu](https://playwright.dev/docs/api/class-websocketroute) birincil belgelerden doğrulandı.
+
+## Tek karakter üretim araçları — 15 Kasım 2026
+
+Yeni npm/runtime bağımlılığı yok. Yerel, Git'e alınmayan üretim araçları: Blender **4.5.16 LTS** (GPL; resmi Windows ZIP SHA-256 `e258e90a1ebc14798ad65b3426bc5f11f5e0e013541c61cc7c3ee9bbf4ca0ce6`) ve MPFB **2.0.18 kaynak sürümü**, commit `9de0707fdc88438d7c53a1a2ac7937d9221e2431` (kod GPL-3.0-or-later, grafik varlıklar/çıktılar CC0-1.0). MakeHuman System Assets CC0 paketi ve seçilmiş dosyaların kaynak/hash/lisans kanıtları `assets/licenses/makehuman-character-provenance.txt` ile karakter `build-info.json` içindedir. Blender/MPFB son kullanıcı kurulumu veya normal CI için gerekli değildir; paketlenmiş GLB runtime'da yüklenir. Blender kaynağındaki rig/mesh/dokular eklentisiz açılabilir; phenotype yeniden üretimi MPFB ister. Gerçek Halay klibi, artist onayı, yöresel giysi ve altılı/uzun süre performans kabulü açık.

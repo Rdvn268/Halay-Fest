@@ -23,6 +23,14 @@ export default defineConfig({
   },
   projects: [
     {
+      name: "production-character",
+      testMatch: "production-character.spec.ts",
+      use: {
+        baseURL: `http://127.0.0.1:${production ? ports.productionScene : ports.devScene}`,
+        viewport: { width: 1080, height: 1440 },
+      },
+    },
+    {
       name: "cinematic-preparation",
       testMatch: "cinematic-plan.spec.ts",
       use: {
